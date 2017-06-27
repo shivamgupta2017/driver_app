@@ -1,0 +1,117 @@
+<ion-view view-title="Step 1" class="payment" cache-view="false">
+	
+
+<div ng-include="'templates/common/loading.html'" ng-show="loading"></div>
+
+	<ion-content class="step1" style="background-color:#f9f9f9">
+
+
+
+ <div class="inputholder" style="margin-top:15px; margin-bottom:15px" >
+          <h4> Select Address </h4>
+  <ion-list>
+      <ion-item class="item-input" style="font-family:verdana">
+      
+     <input style="width:50%" type="text" placeholder="First Name" ng-model="order.billing.first_name">
+     <input  style="width:50%" type="text" placeholder="Last Name"  ng-model="order.billing.last_name">
+      </ion-item>
+
+      <ion-item class="item-input ">
+          
+    <input type="text" style="width:50%" placeholder="Phone" ng-model="order.billing.phone">  <input type="email" style="width:50%" placeholder="Email" ng-model="order.billing.email">
+
+      </ion-item>      
+ <div class="assertive" style="text-align:center">{{billingError}}</div>  
+  </ion-list>
+
+  </div>
+
+  <div class="inputholder" style="margin-top:15px; margin-bottom:15px" >
+          <h4> Shipping Address 
+			<a style="float:right; margin-right:10px" ng-if="hidecontent" ng-click="editshipping()"><img src='img/edit.png' height="15">
+			</a>
+	</h4> 
+  <ion-list>
+      <ion-item class="item-input">
+      
+     <input style="width:50%" ng-disabled="hidecontent" type="text" placeholder="First Name" ng-model="order.shipping.first_name" required>
+     <input  style="width:50%" ng-disabled="hidecontent" type="text" placeholder="Last Name"  ng-model="order.shipping.last_name" required>
+      </ion-item>
+
+      <ion-item class="item-input ">
+          
+    <input style="width:50%" ng-disabled="hidecontent" type="text" placeholder="Address 1" ng-model="order.shipping.address_1" required>
+	<input style="width:50%"  ng-disabled="hidecontent" type="text" placeholder="Address 2" ng-model="order.shipping.address_2" required>
+      </ion-item>
+    
+      <ion-item class="item-input ">
+          <input  style="width:50%" ng-disabled="hidecontent" type="text" placeholder="City" ng-model="order.shipping.city" required>
+    <input type="text" style="width:50%" ng-disabled="hidecontent" placeholder="Zip Code"  ng-model="order.shipping.postcode" required>
+
+      </ion-item>
+      <ion-item class="item-input " ng-if="hidecontent">
+          
+    <!--<input type="text" placeholder="State" ng-model="order.shipping.state">-->
+<!--<div style="width:30%">State: </div>--><!--<select style="width:70%; height:30px; border:0px; background:white;" ng-model="order.shipping.state" ng-options="x for x in states">
+</select>	-->
+		<input type="text" style="width:50%" ng-disabled="true" ng-model="order.shipping.state" placeholder="Enter Your State" >
+      </ion-item>
+	
+   <!--   <ion-item class="item-input item-select ">
+          <div class="input-label">
+      State
+    </div>
+          <country-select cs-required ng-model="order.shipping.state"></country-select>
+
+      </ion-item>
+      -->
+          
+   <div class="assertive" style="text-align:center">{{ShippingError}}</div>
+  </ion-list>
+  </div>
+<div ng-if="(express_charges!=-1)&&hidecontent" style="text-align:left; width:95vw; margin:0 auto">  <span style="vertical-align:middle" ><label for="expressShipping"> Express Shipping <input type="checkbox" id="expressShipping" ng-click="expressCharges()" style="vertical-align:middle"></label>  <div class="color-warm-grey text-left">Charges will be &#8377;{{express_charges}}  for Express shipping</div></span></div>
+  <button class="button button-dark button-small" style="width:50vw; margin-bottom:10px" ng-click="next()" ng-if="!hidecontent">Next</button>
+
+  <div class="inputholder" style="padding:3px; margin-bottom:10px" ng-if="hidecontent">
+          
+  <!-- Coupon code ------------------------------------------------------------------------------------------------------------------------------>
+<!--
+<div style="width:100%; height:auto; border:1px solid #ddd; border-radius:5px; margin-top:15px; background-color: #f8f8f8; margin:0 auto; margin-bottom:15px">
+			   <div class='row positive'>	
+				have a promo code?
+	  	  	 </div>
+			  <div class="row">
+			<input class="text-center"  style="width:50vw; border:1px solid #ddd; border-radius:5px; height:auto; margin:0 auto;"type="text" placeholder="Enter a promo code" ng-model="couponObj.coupon"><button class=" button button-dark button-small" style="text-align:center; margin-left:10px; margin:0 auto; width:20vw;" ng-click="applyCoupon()">Apply</button>
+			
+		</div>
+<div>{{coupon_text}}</div>
+</div>
+-->
+<!-- coupon code end--------------------------------------------------------------------------------------------------------------------------->
+
+<h4>Select Payment Method</h4>
+<div ng-if="!codAvailability" class="assertive">Cash on delivery is not available in this location</div>
+</ion-item>
+
+
+
+<ion-radio ng-disabled="!codAvailability" style="margin:0px; text-align:left;" ng-change="change('cod')" ng-model="choice.answer" ng-value="'cod'" ><img src="img/cod.png" style="vertical-align:middle" height="27" width="27"><span style="line-height:27px;margin-left:5px;">Cash on Delivery</span></ion-radio>
+<ion-radio style="margin:0px; text-align:left;" ng-change="change('online')" ng-model="choice.answer" ng-value="'online'" ><img src="img/cc.png" style="vertical-align:middle" height="27" width="27"><span style="line-height:27px; margin-left:5px;">Net Banking/Credit Card/Debit Card</span></ion-radio>
+
+
+
+<div class="assertive" style="text-align:center">{{selectPaymentError}}</div>
+  </div>
+
+
+
+<div class="footer-button"  ng-if="hidecontent">
+     <button class="button button-dark button-block button-round button-outline " ng-disabled="disable" ng-click="validConfirm()">Next</button>
+     <!--<button class="button button-dark button-block button-round button-outline " ui-sref="app.payment_step2({orderId: 123})">Next</button>-->
+</div>
+</div>
+
+
+		
+	</ion-content>
+</ion-view>

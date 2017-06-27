@@ -1,0 +1,38 @@
+<ion-view view-title="Order Status" class="payment" hide-back-button="true" hide-nav-bar="true">
+
+	<ion-content ng-init="get_selected_address()">
+  
+    <div class="content" style="margin-top:100px">
+		    <div style="font-size:25px ; display: inline-block; border-style: solid;">
+              <span>
+              <h3 class="positive">Thank You, Your Order has been placed Successfully.</h3>
+              </span>
+            </div>
+        </div>
+
+
+        <div style="border:1px solid black;  width:95vw; margin:0 auto; margin-top: 20px; border-radius:5px ">
+            {{'We have sent you a Order Confirmatioin'}}
+        </div>
+          
+
+
+        <div style="border:1px solid #ddd; width:95vw; border-radius:5px; margin:0 auto; margin-top: 20px; text-align:left; padding-left:5px;">
+       
+            {{selected_address.address}}  {{selected_address.apartment}}
+            <br>
+            {{selected_address.zip}}
+            <br>
+            {{selected_address.mobno}}
+          
+          </div>
+  	<div style="padding-top: 25px;">
+  	<button class="button button-assertive button-large" ui-sref="app.editorial" >Continue Shopping</button>
+  	</div>
+      
+	
+
+	</ion-content>
+
+
+</ion-view>

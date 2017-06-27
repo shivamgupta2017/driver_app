@@ -1,0 +1,118 @@
+<ion-modal-view class="cart" ng-controller="CartCtrl">
+
+<ion-header-bar class="pinro-header header-shadow">
+    
+      <button class="button button-clear text-button" ng-click="closeCartModal()">Close</button>
+   
+    <h1 class="title">Cart</h1>
+  </ion-header-bar>
+
+        
+	<ion-content >
+
+<div style="width:95vw; margin:0 auto;">
+	<div style="width:100%; height:25vw; border-bottom:1px solid #ddd" ng-repeat="item in CartItemList track by $index"  >
+		<div style="width:25%; float:left; display:inline-block; height:100%;  border-radius:50%; background-image:url(https://www.minbazaar.com/subs/admin/{{item.productImage}}); background-size:contain;">			
+		</div>
+		<div style="width:75%; display:inline-block; height:25vw;">
+			<div style="width:100%;	">
+				<div style="height:25%; width:90%; display:inline-block; text-align:left; padding-left:3px;  float:left; "><strong>{{item.productName}}</strong>
+				</div>
+			<i style="font-size:12px; width:10%; float:right;" class="icon ion-android-close color-dark" ng-click="removeItem(item)"></i></div>
+			<div style="height:25%; width:100%; text-align:left; float:left; margin-left:10px">
+				{{item.weight}} {{item.unit}}
+			</div>
+			<div style="height:50%; width:100%; padding:5px;  text-align:left; float:left;  font-size:18px;">
+				<div ng-click="dQuantity(item)" class="button button-small button-positive" style="margin-left:10px; float:left; display:inline-block; height:100%; width:40px; font-size:18px; font-weight:bold;" >
+					<i style="" class="ion-android-remove"></i>
+				</div>
+                  		<div class="item item-input text-center" style="float:left; margin-left:3px; text-align:center; padding:0px; display:inline-block; height:100%; width:70px;">
+					{{item.quantity}}
+				</div>
+                  		<div  ng-click="aQuantity(item)" class="button button-small button-positive" style="float:left;  margin-left:3px; display:inline-block; height:100%; width:40px; font-size:18px; font-weight:bold">
+					<i style="" class="ion-android-add"></i>
+				</div>
+				<div style="float:right; margin-right:10px;">&#8377; {{item.price * item.quantity}}
+				</div>
+			</div>
+		
+		</div>
+	</div>
+</div>
+
+<!--<div class="cart-list" style="border:1px solid black; padding:0px">
+			
+            <ion-list ng-if="CartItemList.length">
+  <ion-item ng-repeat="item in CartItemList track by $index" class="item-thumbnail-left item-icon-right">
+            <img ng-src="https://www.minbazaar.com/subs/{{item.image}}">
+             <h5>{{item.productName}} </h5>
+                            <small class="size"> <span ng-if="item.size">Size: {{item.size | uppercase}}</span><span ng-if="item.color">, Color: {{item.color | uppercase}}</span></small>
+                            <small class="">{{item.productImage}}Est. Delivery 5-6 days</small>
+                            <h3 class="price">&#8377; {{item.price * item.quantity}}</h3>
+            <i class="icon ion-android-close color-light-grey" ng-click="removeItem(item)"></i>
+
+
+            <div class="quantity-items"> 
+                  <div ng-click="dQuantity(item)" ng-class="{'disable-pointer-events': item.quantity == 1}"><i class="ion-android-remove"></i></div>
+                  <div ><span class="checkout-product-price ng-binding">{{item.quantity}}</span></div>
+                  <div  ng-click="aQuantity(item)" ng-class="{'disable-pointer-events': item.quantity == 10}"><i class="ion-android-add"></i></div>
+          </div>
+  </ion-item>
+            </ion-list>
+
+</div>-->
+
+
+
+<!--<ion-item style="border:1px solid black; border-radius:12px; width:95%; margin:0 auto;"> 
+<h4>Select Payment Method</h4>
+</ion-item>
+<div style="border:1px solid #ddd; border-radius:0px 0px 0px 0px; background-color:white; margin-top:10px;">
+
+
+<ion-radio style="margin:0px; text-align:left;" ng-model="choice.answer" ng-value="'cod'" ><img src="img/cod.png" style="vertical-align:middle" height="27" width="27"><span style="line-height:27px;margin-left:5px;">Cash on Delivery &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></ion-radio>
+<ion-radio style="margin:0px; text-align:left;" ng-model="choice.answer" ng-value="'online'" ><img src="img/cc.png" style="vertical-align:middle" height="27" width="27"><span style="line-height:27px; margin-left:5px;">Net Banking/Credit Card/Debit Card</span></ion-radio>
+</div>
+-->
+        <div style="background-co" class="price-overview animated fadeInUpBig">
+         <!--   <div class="row">
+                <div class="col">
+                    Subtotal:
+                </div>
+                <div class="col">
+                    &#8377; {{getSubtotal()}} 
+                </div>
+            </div>-->
+            <!--<div class="row">
+                <div class="col">
+                    Estimated Tax:
+                </div>
+                <div class="col">
+                   &#8377; {{calculateTax(20)}} 
+                </div>
+            </div>-->
+
+	    <div class="row total">
+                <div class="col">
+                    Total
+                </div>
+		<div class="col">
+                    {{ getSubtotal()}}
+                </div>
+            </div>	
+
+		
+	
+	   </div>
+
+
+        
+            <div class="footer-button  animated fadeInUpBig" style="margin-top:10px">
+             <button class="button button-dark button-block button-round button-outline " ng-disabled="!CartItemList.length" ng-click="goToCheckout(choice)">Checkout</button>
+		
+            </div>
+		<div>{{Msgs.cart}}</div>
+
+
+</ion-content>
+</ion-modal-view>

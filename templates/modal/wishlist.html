@@ -1,0 +1,42 @@
+<ion-modal-view ng-controller="WishlistCtrl" class="wishlist">
+
+<ion-header-bar class="pinro-header header-shadow">
+  
+      <button class="button button-clear text-button" ng-click="closeWishlistModal()">Close</button>
+   
+    <h1 class="title">Wishlist</h1>
+<button class="button button-clear text-button text-button-right" ng-click="makeListEditable()" ng-if="!editWishlist">
+	<span class="color-light-grey">EDIT</span>
+	</button>
+<button class="button button-clear text-button text-button-right" ng-click="removeSelectedItems()" ng-if="editWishlist">
+	<span class="color-grapefruit">DELETE</span>
+	</button>
+  
+
+  </ion-header-bar>
+
+        
+	<ion-content>
+
+<div class="product-list">
+			<ul>
+				<li class="list-item" ng-repeat="item in WishListItems track by $index">
+					<ion-checkbox ng-if="editWishlist" ng-class="{'checkbox-assertive': item.selected}" ng-model="item.selected"></ion-checkbox>
+
+					<div class="product-image"  ng-click="goToProduct(item.product_id)" style="background: url('{{item.imgUrl}}'); background-size:contain; background-repeat: no-repeat; height: 200px;">
+					</div>
+					<h5 ng-click="goToProduct(item.product_id)">{{item.name}}</h5>
+					<small class="category-name">{{item.category}}</small>
+					<small class="price">&#8377;{{item.price}}</small>
+					<!--<img ng-src="{{item.imgUrl}}">
+             <h5>{{item.name}}</h5>
+                            <small class="category-name">{{item.category}}</small>
+                            <small class="size"> <span ng-if="item.size">Size: {{item.size | uppercase}}</span><span ng-if="item.color">, Color: {{item.color | uppercase}}</span></small>
+                            <small class="">Est. Delivery 5-6 days</small>
+                            <h3 class="price">&#8377;{{item.price}}</h3>
+            <i class="icon ion-android-close color-light-grey" ng-click="removeItem(item)"></i>-->
+				</li>
+			</ul>
+		</div>
+</ion-content>
+</ion-modal-view>

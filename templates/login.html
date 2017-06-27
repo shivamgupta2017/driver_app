@@ -1,0 +1,50 @@
+<ion-view view-title="Sign in" class="signin" hide-nav-bar="true">
+
+
+<!--<div ng-include="'templates/common/loading.html'" ng-show="loading"></div>-->
+
+	<ion-content>
+
+		<form name="loginForm"  novalidate >
+
+		<div class="header" style="margin-top:50px;">
+			<img src="img/l5.png" width="200px">
+			<h5>More than 1000+ Indian products in one place.</h5>
+		</div>
+
+		<div class="signin-input-holder" >
+
+			<ion-list>
+				<ion-item class="item-input ">
+					<i><img src="img/icons/icon_email.svg"></i>
+					<input type="text" ng-model="user.email" placeholder="Email" required>
+
+				</ion-item>
+				<ion-item class="item-input ">
+					<i><img src="img/icons/icon_lock.svg"></i>
+					<input type="password" ng-model="user.password" placeholder="********" required>
+
+				</ion-item>
+
+			</ion-list>
+
+<!--       <h5 class="regular-font" ui-sref="forgot-password">Forgot password?</h5> -->
+
+		</div>
+
+		<div class="footer-button">
+			<h5 class="color-grapefruit m-t-b-0" ng-show="loginError"> {{loginError}}</h5>
+
+			<button class="button button-dark button-block button-round animated bounceIn" ng-disabled="loginForm.$invalid || disableSubmit" ng-click="login()">Sign in</button>
+			<!-- <a class="button button-clear button-full button-stable" ui-sref="app.editorial" style="color:black;"><strong> <i class="icon ion-home"></i> &nbsp; Continue</strong></a> -->
+     
+	  <!-- <h5 class="light-font"  ui-sref="signup">Don’t have an account? <span class="semibold-font">Sign Up</span></h5> -->
+
+	  <p class="padding light-font color-warm-grey" ng-click="openTermsModal()">Terms &amp; Conditions</p>
+		</div>
+		</div>
+
+
+		</form>
+	</ion-content>
+</ion-view>

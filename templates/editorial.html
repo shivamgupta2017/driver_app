@@ -1,0 +1,139 @@
+<ion-view view-title="Editorial" hide-back-button="false">
+
+	<ion-nav-title style="margin-left:0px;" >  
+		<img class="home-logo" src="img/l5.png"  style="width:40vw; height: 10vw; vertical-align: middle; margin: 0 auto;">
+		
+	</ion-nav-title>
+
+
+	<!-- <ion-subheader-bar class="bar bar-subheader">
+          <h1>Subheader</h1>
+        
+    </ion-subheader-bar> -->
+
+
+
+	<ion-content  style="background-color:#f4f4f4" overflow-scroll="true" class="has-header"  id="contentsearch"> 
+
+	<!--on-scroll="getScrollPosition()"-->
+
+        <ion-refresher on-refresh="doRefresh()">
+	        </ion-refresher>
+	<div style="10px" ng-if="data.subscription.length==0 && data.orders.length==0 && data.package.length==0"><h3>No Orders Found</h3></div>        
+	<div ng-if="data.subscription.length>0">	<h3>{{'Subscriptions'}}</h3>
+		<div style="height:100%; width:100%vw;">
+	     	
+	     	<div ng-repeat="orders in data.subscription" style="border: 1px solid black; border-radius: 8px; margin-top: 3%" ng-click="open_single_subscription(orders.subscription_id, orders.package_id, orders.product_id)">
+					 		
+					 		<div class="checkbox" style="float: left; vertical-align:middle; display: inline-block;"> 
+						 			
+						 			<input ng-show="orders.package_id!=0" type="checkbox" style="vertical-align:middle;" checklist-model="selected.package"  checklist-value="orders.subscription_id" ng-click="click_item_checkbox(); $event.stopPropagation(); ">
+
+						 			<input ng-show="orders.product_id!=0" type="checkbox" style="vertical-align:middle;" checklist-model="selected.subscription"  checklist-value="orders.subscription_id" ng-click="click_item_checkbox(); $event.stopPropagation(); ">
+
+
+
+							</div>
+
+							<div style="height:80%; background-size:contain">
+								delivery time : {{orders.time_slot}}
+							</div>
+					
+							<div style="height:20%">
+								address : {{orders.first_name}} {{orders.last_name}}, @ {{orders.address}}, {{orders.zip}}
+							</div>
+
+						
+						 	<div style="width:100%; text-align:left; padding:1px; display: inline-block;">
+								<button style="margin: 1px" class="button  button-balanced button-clear button-outline button-icon ion-ios-telephone icon-left" ng-click="call_customer(orders.mobno); $event.stopPropagation();">Call Customer
+								</button>
+								
+								<button class="button button-assertive" style="float:right; margin: 2px;" ng-click="open_single_subscription(orders.subscription_id, orders.package_id, orders.product_id); $event.stopPropagation();">Get Details
+								</button>
+							</div>
+	    	</div>
+		</div>
+
+	<hr>
+	</div>
+
+<!--************************************************packages**********************************************************************************-->
+	<div ng-if="data.package.length>0">	<h3>{{'Packages'}}</h3>
+		<div style="height:100%; width:100%vw;">
+	     	
+	     	<div ng-repeat="orders in data.package" style="border: 1px solid black; border-radius: 8px; margin-top: 3%" ng-click="open_single_subscription(orders.subscription_id, orders.package_id, orders.product_id)">
+					 		
+					 		<div class="checkbox" style="float: left; vertical-align:middle; display: inline-block;"> 
+						 			
+						 			<input ng-show="orders.package_id!=0" type="checkbox" style="vertical-align:middle;" checklist-model="selected.package"  checklist-value="orders.subscription_id" ng-click="click_item_checkbox(); $event.stopPropagation(); ">
+
+						 			<input ng-show="orders.product_id!=0" type="checkbox" style="vertical-align:middle;" checklist-model="selected.subscription"  checklist-value="orders.subscription_id" ng-click="click_item_checkbox(); $event.stopPropagation(); ">
+
+
+
+							</div>
+
+							<div style="height:80%; background-size:contain">
+								delivery time : {{orders.time_slot}}
+							</div>
+					
+							<div style="height:20%">
+								address : {{orders.first_name}} {{orders.last_name}}, @ {{orders.address}}, {{orders.zip}}
+							</div>
+
+						
+						 	<div style="width:100%; text-align:left; padding:1px; display: inline-block;">
+								<button style="margin: 1px" class="button  button-balanced button-clear button-outline button-icon ion-ios-telephone icon-left" ng-click="call_customer(orders.mobno); $event.stopPropagation();">Call Customer
+								</button>
+								
+								<button class="button button-assertive" style="float:right; margin: 2px;" ng-click="open_single_subscription(orders.subscription_id, orders.package_id, orders.product_id); $event.stopPropagation();">Get Details
+								</button>
+							</div>
+	    	</div>
+		</div>
+	<hr>
+	</div>
+		
+
+		<div ng-if="data.orders.length>0">	<h3>{{'Orders'}}</h3>
+
+			
+			<div style="height:100%; width:100%vw;">
+		     	<!--ng-click="open_single_order(order.order_id)"-->
+				     	<div ng-repeat="order in data.orders" style="border: 1px solid black; border-radius: 8px; height:auto;" ng-click="open_single_order(order.order_id)">
+
+							
+							<div class="checkbox" style="float: left; vertical-align:middle; display: inline-block;"> 
+					 			<input type="checkbox" style="vertical-align:middle;" checklist-model="selected.orders"  checklist-value="order.order_id" ng-click="click_item_checkbox(); $event.stopPropagation(); ">
+							
+										
+										
+							</div>
+							<div style="height:80%; background-size:contain">
+									{{order.delivery_time}}
+							</div>
+							
+							<div style="height:20%">
+										{{order.first_name}} {{order.last_name}}, @ {{order.address}}, {{order.zip}}
+							</div>
+							
+							<div style="width:100%; text-align:left; padding:1px; display: inline-block;">
+								<button style="margin: 1px" class="button  button-balanced button-clear button-outline button-icon ion-ios-telephone icon-left" ng-click="call_customer(order.mobno); $event.stopPropagation();">Call Customer
+								</button>
+								
+								<button class="button button-assertive" style="float:right; margin: 2px;" ng-click="open_single_order(order.order_id)">Get Details
+								</button>
+							</div>
+
+				    	</div>
+			</div>
+		<hr>
+		</div>
+		
+		<button ng-show="selected.orders.length>0 || selected.subscription.length>0 || selected.package.length>0" class="button button-block button-calm " ng-click="get_checked()">Mark as I'm On the Way</button>
+
+	<!-- <div style="float: left; padding: 20px;" class="padding" >
+	</div>
+ -->
+	</ion-content>
+</ion-view>

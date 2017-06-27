@@ -1,0 +1,112 @@
+<ion-modal-view ng-controller="SettingsCtrl" class="settings">
+	<ion-header-bar class="pinro-header header-shadow">
+      		<button class="button button-clear text-button" ng-click="closeEditProfileModal()">Close</button>
+    		<h1 class="title">Settings</h1>
+  	</ion-header-bar>
+ 	<div ng-include="'templates/common/loading.html'" ng-show="loading"></div>       
+	<ion-content>
+		<div class="profile-img">
+    			<img ng-src="{{user.gravatar}}">
+		</div>
+		<ion-list> 
+    			<ion-item class="item-divider">
+        			Info
+    			</ion-item>
+    		<ion-item class="item-input " >
+        		<span class="input-label">First Name</span>
+        		<input type="text" ng-model="user.first_name">
+    		</ion-item>
+    		<ion-item class="item-input ">
+        		<span class="input-label">Last Name</span>
+        		<input type="text" ng-model="user.last_name">
+    		</ion-item>
+
+    		<ion-item class="item-divider">
+        	      Billing Address
+    		</ion-item>
+		<ion-item class="item-input">
+        		<span class="input-label">First Name</span>
+        		<input type="text" ng-model="user.billing.first_name" placeholder="First Name">
+    		</ion-item>
+    		<ion-item class="item-input">
+        		<span class="input-label">Last Name</span>
+        		<input type="text" ng-model="user.billing.last_name" placeholder="Last Name">
+    		</ion-item>
+		<ion-item class="item-input">
+		
+        		<span class="input-label">Email</span>
+        		<input type="text" ng-model="user.billing.email" placeholder="Email">
+    		</ion-item>
+    		<ion-item class="item-input">
+        		<span class="input-label">Mobile</span>
+        		<input type="text" ng-model="user.billing.phone" placeholder="Mobile Number">
+    		</ion-item>		
+		<ion-item class="item-input">
+        		<span class="input-label">Address Line 1</span>
+        		<input type="text" ng-model="user.billing.address_1" placeholder="Address Line 1">
+    		</ion-item>
+    		<ion-item class="item-input">
+        		<span class="input-label">Address Line 2</span>
+        		<input type="text" ng-model="user.billing.address_2" placeholder="Address Line 2">
+    		</ion-item>
+    		<ion-item class="item-input">
+        		<span class="input-label">City</span>
+        		<input type="text" ng-model="user.billing.city" placeholder="City">
+    		</ion-item>
+    		<ion-item class="item-input">
+        		<span class="input-label">Postcode</span>
+        		<input type="text" ng-model="user.billing.postcode" placeholder="Postcode">
+    		</ion-item>
+    		<ion-item class="item-input">
+       			<span class="input-label">State</span>
+			<input type="text" ng-model="user.billing.state" placeholder="State">
+    		</ion-item> 
+		<ion-item class="item-input" ng-hide="true">
+       			<span class="input-label">Country</span>
+          		<input type="text" ng-model="user.billing.country" placeholder="Country">
+    		</ion-item>
+    		<ion-item class="item-divider">
+        		Shipping Address
+    		</ion-item>
+		<ion-item class="item-input">
+        		<span class="input-label">First Name</span>
+        		<input type="text" ng-model="user.shipping.first_name" placeholder="First Name">
+    		</ion-item>
+    		<ion-item class="item-input">
+        		<span class="input-label">Last Name</span>
+        		<input type="text" ng-model="user.shipping.last_name" placeholder="Last Name">
+    		</ion-item>	
+		<ion-item class="item-input">
+        		<span class="input-label">Address Line 1</span>
+        		<input type="text" ng-model="user.shipping.address_1" placeholder="Address Line 1">
+    		</ion-item>
+    		<ion-item class="item-input">
+        		<span class="input-label">Address Line 2</span>
+        		<input type="text" ng-model="user.shipping.address_2" placeholder="Address Line 2">
+    		</ion-item>
+    		<ion-item class="item-input">
+        		<span class="input-label">City</span>
+        		<input type="text" ng-model="user.shipping.city" placeholder="City">
+    		</ion-item>
+    		<ion-item class="item-input">
+        		<span class="input-label">Postcode</span>
+        		<input type="text" ng-model="user.shipping.postcode" placeholder="Postcode">
+    		</ion-item>
+    		<ion-item class="item-input">
+       			<span class="input-label">State</span>
+          	<!--<select style="height:30px; border:0px; background:white;" ng-model="user.shipping.state" ng-options="x for x in states">
+</select>-->		<input type="text" ng-model="user.shipping.state" placeholder="State">
+    		</ion-item> 
+		<ion-item class="item-input" ng-hide="true">
+       			<span class="input-label">Country</span>
+          		<input type="text" ng-model="user.billing.country" placeholder="Country">
+    		</ion-item>
+	</ion-list>
+
+<div class="footer-button">
+    <button class="button button-dark button-block button-round button-outline" ng-click="updateProfile()">Save Changes</button>
+  <!--  <button class="button button-assertive button-block button-round" ng-click="closeEditProfileModal()">Delete Account</button>-->
+</div>
+
+</ion-content>
+</ion-modal-view>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="21px" viewBox="0 0 24 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_lock#white</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="5" width="24" height="16"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="24" height="16" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <rect id="path-3" x="6" y="0" width="12" height="7"></rect>
+        <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="12" height="7" fill="white">
+            <use xlink:href="#path-3"></use>
+        </mask>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon_cart" transform="translate(-4.000000, -3.000000)">
+            <g id="icon_lock#white" transform="translate(4.000000, 3.000000)">
+                <use id="Rectangle-10" stroke="#FF5252" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
+                <use id="Rectangle-12" stroke="#FF5252" mask="url(#mask-4)" stroke-width="4" xlink:href="#path-3"></use>
+                <circle id="Oval-4" fill="#FF5252" cx="12" cy="12" r="2"></circle>
+                <rect id="Rectangle-13" fill="#FF5252" x="11" y="12" width="2" height="4"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

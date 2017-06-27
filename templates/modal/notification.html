@@ -1,0 +1,58 @@
+<ion-modal-view class="cart" ng-controller="CartCtrl">
+
+<ion-header-bar class="pinro-header header-shadow">
+    
+      <button class="button button-clear text-button" ng-click="closeNotificationModal()">Close</button>
+   
+    <h1 class="title">Notification</h1>
+  </ion-header-bar>
+
+      
+<ion-content style="background-color:#f4f4f4;">
+	<span>{{errNotification}}</span>  
+	<!--<div class="notsblock">
+		<div class="notblock" ng-repeat="note in Notifications"  ng-class="{'unread':note.status=='NEW'}" on-swipe-left="actionNotification(note.notification_id,'delete')">
+			<div class="cloumn1">
+				<div class="ntitle">
+					{{note.title}}
+				</div> 
+				<div class="nmsg">
+					{{note.message}}
+				</div>
+			</div>
+			<div class="cloumn2" ><i class="ion-ios-trash-outline" style="font-size:25px"></i></div>
+		</div>
+
+	</div>-->
+
+     <ion-list >
+        <ion-item class="item item-text-wrap text-left" ng-repeat="note in Notifications"  item="item"  ng-class="{'item-stabl':note.status=='NEW'}"  can-swipe="true" style="padding-top:0px; margin:0px; font-family:regular">
+	<div style="item-accordion">
+		<div style="font-size:4vw; font-weight:bold">{{ note.title }}</div><div style="line-height:4vw; color:gray; font-size:3.5vw">{{ note.message}}</div>
+	</div>
+          <ion-option-button ng-click="actionNotification(note.notification_id,'delete')" class="button-assertive"><i class="ion-ios-trash-outline"></i>&nbsp;&nbsp; Delete</ion-option-button>   
+	       
+        </ion-item>
+      </ion-list>
+
+
+
+
+
+<!--	<ion-list class="nRead">
+		<ion-item ng-repeat="note in Notifications">
+			{{note.title}} <i class="ion-ios-trash-outline"></i>
+		</ion-item>
+	</ion-list>
+	<ion-list>
+		<ion-item  class="sRead" style="background-color:grey">
+			Thankss! <i class="ion-ios-trash-outline"></i>
+		</ion-item>
+		<ion-item class="sUnRead">
+			Discount for you <i class="ion-ios-trash-outline"></i>
+		</ion-item>
+	</ion-list>
+	
+-->
+</ion-content>
+</ion-modal-view>

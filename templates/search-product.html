@@ -1,0 +1,81 @@
+<ion-view  view-title="Search" class="signin">
+<div class="bar bar-header pinro-header header-shadow">
+ <button class="button button-icon icon ion-ios-arrow-back" ng-click="goback()"></button>
+  <div class="h1 title">Search</div>
+</div>
+	<form ng-submit="">
+	<div class="bar bar-subheader item-input-inset subheader-with-input" style="border-bottom:1px solid #ddd">
+  		<label class="item-input-wrapper"> 
+    			<input type="search" placeholder="Type here" ng-model="search1">
+  		</label>
+  		<button class="button button-icon" ng-click="searchProducts()">
+    			<!--<i class="icon ion-ios-search placeholder-icon"></i>-->
+    			<img src="img/icons/search_icon.svg">
+  		</button>
+	</div>
+	</form>
+
+<div ng-include="'templates/common/loading.html'" ng-show="loading"></div>
+
+	<ion-content class="has-subheader"  style="background-color:#ffffff"  id="contentsearch" style="background-image:url(img/back.jpg)">
+		<style>
+			.abc{
+					background-color:white;
+					text-align:center;
+					color:black;
+				}
+		</style>
+
+
+		<div style="height:100%; width:100vw; background-color:white; margin-bottom:100px">
+						<div style="margin-top:50px" ng-if="isError">{{searchErorr}}</div>
+							<div class="product-list">
+								
+								<div ng-repeat="product in productList" style="display:inline-block; width:49vw; height:60vw; margin-top:10px; border:1px solid #ddd;" ng-click="openCategory(category.id)">
+		
+										<div style="height:45%; background-image:url(https://www.minbazaar.com/subs/admin/{{product.image}}); background-position:center; background-repeat:no-repeat; background-size:contain">
+										</div>
+								<div style="height:10%;">
+										{{product.product_name}}
+								</div>
+								
+								<div style="height:10%;" ng-if="product.unit_data.length>1">
+									&#8377; {{s.price}}
+								</div>
+							
+								<div style="height:10%;" ng-if="product.unit_data.length==1">
+									&#8377; {{product.unit_data[0].price}}
+								</div>
+							
+								<div style="height:20%;  padding:10px 20px;" ng-show="product.unit_data.length>1">
+								
+								<select  class="abc" style="display:inline-block; width:100%; border:1px solid #ddd;" ng-init="s = product.unit_data[0]" ng-model="s" ng-options="v.weight+' '+v.unit for v in product.unit_data">
+								</select>
+									<!--<div ng-if="product.unit_data.lengt==1">{{product.unit_data[0].unit}}</div>-->
+			
+								</div>
+								
+								<div style="height:20%;  padding:10px 20px;" ng-show="product.unit_data.length==1">
+									{{product.unit_data[0].weight+' '+product.unit_data[0].unit}}
+										<!--<div ng-if="product.unit_data.lengt==1">{{product.unit_data[0].unit}}</div>-->			
+								</div>
+								
+								<div style="height:15%">
+			
+								<button ng-click="addToCart(product,s.unit_id,s.price,s.unit,s.weight,s.basic_weight)"class="button button-small button-dark icon ion-ios-cart icon-left" style="width:40%; background-color:#444444">Add</button>&nbsp;
+			<button class="button button-positive button-small" style="width:50%" ng-click="subscribeProducts(product.id,s.unit_id,s.unit,s.weight);">Subscribe</button>
+		</div>
+     </div>
+
+
+
+
+
+
+							</div>
+		
+							<!-- <ion-infinite-scroll on-infinite="loadMoreProducts()" spinner="ios" distance="10%" ng-if="more"></ion-infinite-scroll> -->
+		
+						</div>
+	</ion-content>
+</ion-view>

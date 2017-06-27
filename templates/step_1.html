@@ -1,0 +1,91 @@
+<ion-view view-title="Step 1" class="payment" cache-view="false">
+	
+
+<div ng-include="'templates/common/loading.html'" ng-show="loading"></div>
+
+	<ion-content class="step1" style="background-color:#fff" scroll="false">
+<!--
+<div style="width:70vw;  height:10vw; margin:0 auto; margin-top:5px;">
+	<div style="height:10vw; width:10vw; display:inline-block; border:1px solid black; float:left; border-radius:50%">
+	</div>
+	<div style="height:2vw; width:20vw; margin-top:4vw; display:inline-block; border:1px solid black; float:left">
+	</div>
+	<div style="height:10vw; width:10vw; display:inline-block; border:1px solid black;float:left; border-radius:50%">
+	</div>
+	<div style="height:2vw; width:20vw; margin-top:4vw; display:inline-block; border:1px solid black; float:left">
+	</div>
+	<div style="height:10vw; width:10vw; display:inline-block; border:1px solid black; float:right; border-radius:50%">
+	</div>
+</div>-->
+
+
+ <div class="inputholder" style="margin-top:15px; margin-bottom:15px;">
+	<div style="height:40px">
+          <div style="height:auto; display:inline-block; width:70%; float:left">Select Address</div><div style="width:30%; display:inline-block; float:right"><button class="button button-small button-dark"  style="float:right;" ng-click="check_zip_avail()">New</button></div>
+	</div>
+  
+<div style="width:100%; display:block; height:150px; overflow-y:auto">
+<ion-radio  style="margin:0px; text-align:left;" ng-repeat="add in Addresses" ng-model="subobject.delivery_add_id" ng-value="add.id" ng-change="select_address(add.id)"><span style="line-height:27px;margin-left:5px; font-size:12px">{{add.address}}{{", "+add.apartment}}<br>{{add.zip}}<br>{{add.mobno}}</span></ion-radio>
+</div>
+</div>
+
+
+
+<!--subscription type end-->
+<div class="inputholder" style="margin-top:15px; margin-bottom:15px" ng-show="(subobject.delivery_add_id!=undefined)&&(subobject.quantity!=undefined)" ng-if="is_subs=='true'">
+	<h4> Select Subscription type 
+	<a style="float:right; margin-right:10px" ng-if="hidecontent" ng-click="editshipping()"><img src='img/edit.png' height="15">
+			</a>
+	</h4> 
+  	<ion-list>
+     <ion-radio style="margin:0px; text-align:left;"  ng-model="selectSubscriptionType.answer" ng-value="'2'" ng-change="changeSubscriptionType()"><span style="line-height:27px;margin-left:5px;">Daily</span></ion-radio>
+     <ion-radio style="margin:0px; text-align:left;"  ng-model="selectSubscriptionType.answer" ng-value="'1'" ng-change="changeSubscriptionType()"><span style="line-height:27px;margin-left:5px;">Custom</span></ion-radio>
+      
+  </ion-list>
+  </div>
+<!--subscription type end-->
+
+<div ng-if="(express_charges!=-1)&&hidecontent" style="text-align:left; width:95vw; margin:0 auto">  <span style="vertical-align:middle" ><label for="expressShipping"> Express Shipping <input type="checkbox" id="expressShipping" ng-click="expressCharges()" style="vertical-align:middle"></label>  <div class="color-warm-grey text-left">Charges will be &#8377;{{express_charges}}  for Express shipping</div></span></div>
+ <!-- <button class="button button-dark button-small" style="width:50vw; margin-bottom:10px" ng-click="next()" ng-if="!hidecontent">Next</button>-->
+
+<div class="padding-horizontal" ng-show="showNextButton">
+      <ionic-multi-date-picker input-obj="datepickerObject">
+        <button class="button button-block button-energized">
+          Next
+        </button>
+      </ionic-multi-date-picker>
+</div>
+
+  <div class="inputholder" style="padding:3px; margin-bottom:10px" ng-if="hidecontent">
+          
+  <!-- Coupon code ------------------------------------------------------------------------------------------------------------------------------>
+<!--
+<div style="width:100%; height:auto; border:1px solid #ddd; border-radius:5px; margin-top:15px; background-color: #f8f8f8; margin:0 auto; margin-bottom:15px">
+			   <div class='row positive'>	
+				have a promo code?
+	  	  	 </div>
+			  <div class="row">
+			<input class="text-center"  style="width:50vw; border:1px solid #ddd; border-radius:5px; height:auto; margin:0 auto;"type="text" placeholder="Enter a promo code" ng-model="couponObj.coupon"><button class=" button button-dark button-small" style="text-align:center; margin-left:10px; margin:0 auto; width:20vw;" ng-click="applyCoupon()">Apply</button>
+			
+		</div>
+<div>{{coupon_text}}</div>
+</div>
+-->
+<!-- coupon code end--------------------------------------------------------------------------------------------------------------------------->
+<h4>Select Payment Method</h4>
+<div ng-if="!codAvailability" class="assertive">Cash on delivery is not available in this location</div>
+</ion-item>
+<ion-radio ng-disabled="!codAvailability" style="margin:0px; text-align:left;" ng-change="change('cod')" ng-model="choice.answer" ng-value="'cod'" ><img src="img/cod.png" style="vertical-align:middle" height="27" width="27"><span style="line-height:27px;margin-left:5px;">Cash on Delivery</span></ion-radio>
+<ion-radio style="margin:0px; text-align:left;" ng-change="change('online')" ng-model="choice.answer" ng-value="'online'" ><img src="img/cc.png" style="vertical-align:middle" height="27" width="27"><span style="line-height:27px; margin-left:5px;">Net Banking/Credit Card/Debit Card</span></ion-radio>
+<div class="assertive" style="text-align:center">{{selectPaymentError}}</div>
+  </div>
+<div class="footer-button"  ng-if="hidecontent">
+     <button class="button button-dark button-block button-round button-outline " ng-disabled="disable" ng-click="validConfirm()">Next</button>
+     <!--<button class="button button-dark button-block button-round button-outline " ui-sref="app.payment_step2({orderId: 123})">Next</button>-->
+</div>
+</div>
+
+
+		
+	</ion-content>
+</ion-view>

@@ -1,0 +1,25 @@
+<ion-modal-view class="cart" ng-controller="ProductFilterCtrl" cache-view="false" >
+
+<ion-header-bar class="pinro-header header-shadow"> 
+    <h1 class="title title-center">Check your location</h1>
+</ion-header-bar>
+
+
+<ion-content  style="background-color:#eaeaea" scroll="false" >
+
+<!--<div style="height:auto; width:95vw; margin:0 auto; background-color:white; border:1px solid #ddd;">hello</div>-->
+
+<div style="border:3px solid black; width:85vw; border-radius:3px; margin:0 auto; margin-top:40vh; transform:translate(0,-50%); ">
+   
+   <label for="zipcode">Enter Your Zip Code</label>
+   <input type="text" id="zipcode" class="item-input" placeholder="Enter Zip Code" style="border:1px solid black; width:100%" ng-model="zipcheck">
+	<button class="button button-block button-positive" ng-click="checkZipCode(zipcheck)">Submit</button>
+   
+
+</div>
+
+
+
+</ion-content>
+
+</ion-modal-view>

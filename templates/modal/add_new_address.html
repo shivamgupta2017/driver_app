@@ -1,0 +1,58 @@
+<ion-modal-view ng-controller="SettingsCtrl" class="settings">
+	<ion-header-bar class="pinro-header header-shadow">
+      		<button class="button button-clear text-button" ng-click="close_add_new_addressModal()">Close</button>
+  
+
+
+                
+
+
+
+
+
+    		<h1 class="title">Add new Address</h1>
+  	</ion-header-bar>
+ 	<div ng-include="'templates/common/loading.html'" ng-show="loading"></div>       
+	<ion-content>
+		<!-- <div class="profile-img">
+    			<img ng-src="{{user.gravatar}}">
+		</div> -->
+
+
+            <div style="width:100%; diplay:block; height:150px; overflow-y:auto">
+                    <div  style="margin:0px; text-align:left;" ng-repeat="add in Addresses" ng-model="subobject.delivery_add_id" ng-value="add.id" ng-change="select_address(add.id)"><span style="line-height:27px;margin-left:5px; font-size:12px">{{add.address}}{{", "+add.apartment}}<br>{{add.zip}}<br>{{add.mobno}}
+                    </span>
+                    </div>
+                    </div>
+                    </div>
+
+
+		<ion-list> 
+    	       <ion-item class="item-divider">
+        	       	Shipping Address
+    	       	</ion-item>
+	       	<ion-item class="item-input">
+        		<span class="input-label">New Address</span>
+        		<input type="text" ng-model="add_new.address" placeholder="New Address">
+    		</ion-item>
+    		<!-- <ion-item class="item-input">
+        		<span class="input-label">Apartment</span>
+        		<input type="text" ng-model="add_new.address_2" placeholder="Address 1">
+    		</ion-item> -->
+            <ion-item class="item-input">
+                <span class="input-label">Mobile no</span>
+                <input type="text" ng-model="add_new.mobno" placeholder="Address 2">
+            </ion-item>
+    		<ion-item class="item-input">
+        		<span class="input-label">Postcode</span>
+        		<input type="text" ng-model="add_new.zip" placeholder="Postcode">
+    		</ion-item>
+    	</ion-list>
+
+<div class="footer-button">
+    <button class="button button-dark button-block button-round button-outline" ng-click="add_address()">Save Changes</button>
+  <!--  <button class="button button-assertive button-block button-round" ng-click="closeEditProfileModal()">Delete Account</button>-->
+</div>
+
+</ion-content>
+</ion-modal-view>

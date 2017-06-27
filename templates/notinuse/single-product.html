@@ -1,0 +1,224 @@
+<ion-view view-title="{{product.categories[0].name}}" delegate-handle="12345">
+	
+	<!--<div ng-include="'templates/common/loading.html'" ng-show="loading"></div>-->
+	<ion-content class="single-product-page" style="padding:0px; margin-bottom:16vw; background-color:#f4f4f4" ng-show="showContent">
+	 <div id="mizan" style="background-color:white">
+		<div class="slider-holder" style="margin-bottom:0px; background-color:white;">
+			
+			<ion-slides slider="slider">
+				<ion-slide-page ng-repeat="image in productImages" ng-click="showImages($index, productImages)">
+					<img ng-src="{{image.src}}">
+				</ion-slide-page>
+			</ion-slides>
+		</div>
+		<div class="animated pulse" style="background-color:white;">
+			<h6 class="regular-font" style="margin-left:10px; font-size:3.5vw; text-align:left; line-height:4vw;">{{product.name}}</h6>
+			<h6 class="color-warm-grey regular-font" style="margin-left:10px; font-size:3vw; text-align:left; line-height:4vw; ">{{product.categories[0].name}}</h6>
+			<h6 style="margin-left:10px; font-size:4vw; text-align:left;">
+				&#8377;{{product.price}} 
+				<strike> 
+					<span style="color:red; font-size:3vw;" ng-if="product.price<product.regular_price">
+						&#8377;&nbsp;{{product.regular_price}}
+					</span>
+					<span>
+						
+					</span>
+				</strike>
+				<div class="color-warm-grey" style="margin-left: 10px; border:0.5px solid black; font-size:3vw; border-radius:3px; display:inline-block; padding:2px; vertical-align:middle" ng-if="product.price<product.regular_price">&nbsp;{{getDiscount(product.regular_price,product.price)}}% Off &nbsp; </div>
+			</h6>
+		</div>
+		<form name="productForm" novalidate  style="background-color:white">
+			<div class="product-description" style="margin:0 auto">
+				<div class="section">	
+					<h5>Product Description</h5>
+					<h6 class="color-warm-grey" ng-bind-html="product.description"></h6>
+					<h6 class="color-warm-grey" ng-bind-html="product.short_description"></h6>
+				</div>
+			<!--product variation-->
+
+				<div class="section" ng-if="product.attributes.length" ng-show="product.attributes.length">
+					<ul class="option-radio">
+						<li ng-repeat="attribute in product.attributes[0].options">
+							<label>
+                       					 <input type="radio" name="color" ng-model="selectedProduct.color" value="{{attribute}}" ng-change="updatePriceAndVariation(selectedProduct)" required>
+							<div class="with-color" style="background: {{attribute}}">
+							</div>
+                    					</label>
+						</li>
+					
+					</ul>
+				</div>
+				<div class="section" ng-show="product.attributes.length">
+					<ul class="option-radio">
+						<li ng-repeat="attribute in product.attributes[1].options">
+							<label>
+								<input type="radio" name="size" ng-model="selectedProduct.size" value="{{attribute}}" ng-change="updatePriceAndVariation(selectedProduct)" required>
+								<div class="with-text" >
+									<span>{{attribute}}</span>
+								</div>
+							</label>
+						</li>
+					
+					</ul>
+				</div>
+			</div>
+		</form>
+
+</div>
+
+<!-- location----------------------------------------------------------------------------------------------------------------------------------->
+<div style="border:1px solid #ddd; width:95vw; height:19vw;  text-align:left; border-radius:5px; background-color:white; margin:0 auto; margin-top:20px;">
+	<div style="margin-top:10px; margin-left:10px; display:inline-block; width:70%">{{deliversTo}}</div> <button style="margin-right:10px; margin-top:10px;float:right; " class="button button-small button-dark" ng-click="showPopup(selectedProduct)"> Change</button>
+	<div class="color-warm-grey" style="margin-left:10px; height:4vw; line-height:3vw" ng-show="isIndore"> Product available at your location </div>
+	<div class="assertive" style="margin-left:10px; height:4vw; line-height:3vw; margin-right:10px" ng-show="isNotAvailable"> Currently the product can't be shipped to your location.</div>
+	<div class="positive" style="margin-left:10px; height:4vw; line-height:3vw" ng-show="isNotIndore"> Product available at your location</div>
+	
+</div><!--mizan-->
+<!-- location end-------------------------------------------------------------------------------------------------------------------------------->
+
+
+<!----------------------------------------------------Rating and review section----------------------------------------------------------------->
+<div style=" border-radius:5px; width:95vw; margin:0 auto; height:auto; border:1px solid #ddd; margin-top:10px; background-color:white" ng-click="open(product.id,product.name,product.categories[0].name,productImages[0].src)">
+	<div style="text-align:left; margin-left:10px;">Rating & Reviews</div>
+	<div style=" " > 
+			<span ng-if="reviewsList.length && product.average_rating!=0" style="padding:0px; display:inline-block; line-height:15vw; height:15vw; font-size:15vw;vertical-align:middle">
+				{{convertfloat(product.average_rating) |  number:1}}
+			</span>
+			<span style="padding:0px; display:inline-block; height:15vw;vertical-align:middle;">
+				<rating style="height:10vw; line-height:10vw; margin-left:0px" ng-model="convertfloat(product.average_rating)" max="5">
+					<!---->
+				</rating> 
+				<div style="height:5vw; line-height:3vw; width:50vw" class="color-warm-grey">{{rc}}</div>
+			</span>
+		</div>
+		<div class="reviews-star">
+			RATE AND WRITE A REVIEW
+			<div ng-repeat="review in reviewsList | limitTo:5" style="height:auto; width:100%; border-top:1px solid #ddd; text-align:left; margin-bottom:10px" >
+				<div style="height:auto; margin-top:10px">
+					<div style="text-align:left;  margin-left:10px; display:inline-block;">
+					  <img src="img/icons/icon_user.svg" style="height:4vw; margin-right:5px"></img>{{review.name| limitTo:17}}<span ng-if="review.name.length>17">...</span> 
+					</div>
+					<span class="color-warm-grey" style="float:right; margin-right:10px"><i class="icon ion-clock"></i> {{getDatef(review.date_created)}}</span> 
+				</div>
+				<div style="width:100%; text-align:left; float:left; margin-left:10px" class="color-warm-grey">
+					<div style="float:left; vertical-align:middle; font-size:4vw; height:5vw">
+						{{review.rating}}
+					</div>
+					<rating  style="text-align:left; display:inline-block; height:5vw; line-height:5vw; margin-left:10px;" ng-model="review.rating" max="5"></rating>
+				</div>
+				<p style="text-align:left; margin-left:10px; display:block;">
+					{{review.review}}
+				</p>
+				
+			</div>
+
+			<div>
+				<a style="margin-top:10px">View all reviews</a>
+			</div>
+		</div>
+	</div>
+	
+<!------------------------------------------------------rating and review section end------------------------------------------------------------>
+		<!--footer button-->
+
+
+<!--
+<div fixed-content>
+	<div class="row" style="margin: 0 auto; position:fixed; bottom:0; background-color:white; height:11vh; z-index:13">
+		<button class="col-40 button button-block button-round button-small button-dark" ng-click="addToCart(selectedProduct)" ng-disabled="productForm.$invalid" style="font-size:10px; margin:0 auto;line-height:20px">
+		add to cart
+		</button>
+		<div class=""></div>
+		<button class="col-40 button button-block button-small button-round button-dark button-outline" ng-click="addToWishlist(selectedProduct)" ng-disabled="productForm.$invalid || itemAddedToWishList" style="font-size:10px; margin:0 auto; line-height:20px">
+		{{wishListButtonText}}
+		</button>
+	</div>
+</div>
+
+-->
+
+<!---------------------------------------------------add to cart and wish list button------------------------------------------------------------>
+<!--
+<div class="row" style="margin: 0 auto; margin-top:10px">
+	<button class="col-40 button button-block button-round button-dark" ng-click="addToCart(selectedProduct)" ng-disabled="productForm.$invalid" style="font-size:10px; margin:0 auto;line-height:20px">
+		add to cart
+	</button>
+	<div class=""></div>
+	<button class="col-40 button button-block button-round button-dark button-outline" ng-click="addToWishlist(selectedProduct)" ng-disabled="productForm.$invalid || itemAddedToWishList" style="font-size:10px; margin:0 auto; line-height:20px">
+		{{wishListButtonText}}
+	</button>
+</div>
+-->
+<!---------------------------------------------------add to cart and wish list button------------------------------------------------------------>
+
+<!--</form>-->
+
+
+
+
+<div style="border:1px solid #ddd; margin-top:10px; background-color:white;">
+	<h4 style="margin-top:10px;">Related Products</h4>
+<div class="product-list">
+
+         <!--   <ion-scroll direction="x" style="width:100vw">
+                <div class="wide">
+                    <div  ng-repeat="x in relatedproductlist" ng-if="product.id!=x.id"style="width:35vw; border:1px solid #ddd; height:42vw;" ui-sref="app.single({id:x.id})">
+                         
+                            <div  class="img" style="background-image: url({{x.images[0].src}}); text-align: center; padding:2px;background-size:contain; background-position:center; background-repeat:no-repeat; height:21vw; width:100%; margin: 0 auto;">
+			   </div>
+                        
+                        	<h6 class="name"  ng-bind-html="x.name" style="white-space:normal; line-height:3vw; min-height:6vw; font-size:3vw; padding:0px;"></h6>
+				<h6 style="white-space:normal; line-height:3vw; font-size:3vw; padding:0px;">&#8377;{{x.price}} <strike style="color:red" ng-if="x.price<x.regular_price">&#8377;{{x.regular_price}} </strike> </h6>                            
+                        
+
+                    </div>
+                </div>
+            </ion-scroll>-->
+<!--ng-if="product.id!=item.id"-->
+
+<li class="list-item" ng-repeat="item in relatedproductlist | limitTo:4" ui-sref="app.single({id:item.id})"  style="border:1px solid #ddd; height:60vw; background-color:white; list-style-type: none;">
+					<div style="height:50%; background: url('{{item.images[0].src}}'); background-size:contain; background-position:center; background-repeat:no-repeat">
+					</div>
+				<h6 ng-if="item.name.length>65" style="font-size:3.5vw; line-height:4vw; min-height:12vw;">{{item.name | limitTo:65}} . . .</h6>
+				<h6 ng-if="item.name.length<=65" style="font-size:3.5vw; line-height:4vw; min-height:12vw;">{{item.name}}</h6>
+					<small class="category-name">{{item.categories[0].name}}</small>
+					<span ng-if="item.sale_price!=''">
+					<span class="price" style="text-decoration: line-through; font-weight:bold; color:red"> 
+						<span style="font-weight:normal; color:black;">&#8377;{{item.regular_price}}&nbsp;&nbsp;</span>
+					</span>
+					</span>
+					<span class="price">&#8377;{{item.price}}</span>
+				</li>
+</div>
+</div>
+
+ 
+	</ion-content>
+
+<div class="tabs tabs-btm" style="height:15vw;" ng-if="showContent">
+	<div class="row" style="background-color:white; height:15vw; vertical-align:middle; z-index:15">
+		<button class="col-40 button button-block button-small button-dark" ng-click="addToCart(selectedProduct)" ng-disabled="productForm.$invalid" style="font-size:4vw; margin:0 auto;line-height:4vw; height:12vw; vertical-align:middle;">
+		<strong>Add to cart</strong>
+		</button>
+		<div class=""></div>
+		<button class="col-40 button button-block button-small  button-assertive button-outline" ng-click="addToWishlist(selectedProduct)" ng-disabled="productForm.$invalid || itemAddedToWishList" style="font-size:4vw; vertical-align:middle; margin:0 auto;height:12vw; background-color:red; color:white; line-height:4vw;">
+		<strong>{{wishListButtonText}}</strong>
+		</button>
+	</div>
+</div>
+<!---------------------------------------------------add to cart and wish list button------------------------------------------------------------>
+<!--<ion-content scrollable="false">
+<div class="row" style="margin: 0 auto; position:fixed; bottom:0;">
+	<button class="col-40 button button-block button-round button-dark" ng-click="addToCart(selectedProduct)" ng-disabled="productForm.$invalid" style="font-size:10px; margin:0 auto;line-height:20px">
+		add to cart
+	</button>
+	<div class=""></div>
+	<button class="col-40 button button-block button-round button-dark button-outline" ng-click="addToWishlist(selectedProduct)" ng-disabled="productForm.$invalid || itemAddedToWishList" style="font-size:10px; margin:0 auto; line-height:20px">
+		{{wishListButtonText}}
+	</button>
+</div>
+fixed
+</ion-content>-->
+<!---------------------------------------------------add to cart and wish list button------------------------------------------------------------>
+
+</ion-view>

@@ -1,0 +1,53 @@
+<ion-modal-view ng-controller="SettingsCtrl" class="settings">
+
+<ion-header-bar class="pinro-header header-shadow">
+    
+      <button class="button button-clear text-button" ng-click="closeSelectLanguageModal()">Close</button>
+  
+    <h1 class="title">Settings</h1>
+  </ion-header-bar>
+
+
+<div ng-include="'templates/common/loading.html'" ng-show="loading"></div>
+
+ <form name="changePasswordForm"  novalidate >
+        
+	<ion-content>
+
+<ion-list>
+
+   
+    
+    <ion-item class="item-divider">
+        Change Language
+    </ion-item>
+    <!--<ion-item class="item-input ">
+        <span class="input-label">New</span>
+        <input type="password" ng-model="user.password" required>
+    </ion-item>
+    <ion-item class="item-input " ng-class="{'has-errors': user.password != confirm_pass}">
+        <span class="input-label">Retype</span>
+        <input type="password" ng-model="confirm_pass" required>
+    </ion-item>-->
+    
+<ion-radio style="margin:0px; text-align:left;" ng-model="choice.answer" ng-value="'en'" ><!--<img src="img/cod.png" style="vertical-align:middle" height="27" width="27">--><span style="line-height:27px;margin-left:5px;">English &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></ion-radio>
+<ion-radio style="margin:0px; text-align:left;"  ng-model="choice.answer" ng-value="'hi'" ><!--<img src="img/cc.png" style="vertical-align:middle" height="27" width="27">--><span style="line-height:27px; margin-left:5px;">Hindi</span></ion-radio>
+    
+   
+    
+   
+
+
+    
+    
+    
+			
+</ion-list>
+
+<div class="footer-button">
+    <button class="button button-dark button-block button-round button-outline"  ng-click="setLang(choice.answer)"  ng-disabled="!choice.answer">Save Changes</button>
+</div>
+
+</ion-content>
+ </form>
+</ion-modal-view>

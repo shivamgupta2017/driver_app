@@ -1,0 +1,85 @@
+<ion-modal-view class="cart" ng-controller="ProductFilterCtrl" cache-view="false">
+
+<ion-header-bar class="pinro-header header-shadow">
+    
+      <button class="button button-clear text-button" ng-click="closeFilterModal()">Close</button>
+   
+    <h1 class="title">Filter</h1>
+  </ion-header-bar>
+<ion-content  style="background-color:#eaeaea" >
+
+<!--<div style="height:auto; width:95vw; margin:0 auto; background-color:white; border:1px solid #ddd;">hello</div>-->
+<div  style="width:40%; float:left; margin-top:10px">
+
+<button ng-repeat="(x,y) in filterList track by $index" id="{{x}}btn" class="button button-block button-clear "  style=" border-radius:0px; border-bottom:1px solid #adadad; border-right:1px solid #eaeaea ; height:100%; padding:0px; margin:0px; width:100%; color:black" ng-click="changeContent(x)" ng-class="{'filterbtn': $index==1}">
+		<span >{{x}}</span>
+		<i ng-if="checkdivshow(x)" class="icon ion-arrow-right-b" style="float:right; margin-right:5%"></i>
+	</button>
+</div>
+
+
+<div ng-repeat="(x,y) in filterList track by $index" style="width:60%; border-right:1px solid #d#d#d; background-color:white; float:right;  height:80vh; overflow-x:scroll;" id="{{x}}">
+	<div ng-if="y.html_description" style="border-bottom:1px solid #ddd; width:100%; padding-left:5px; float:right;" ng-bind-html="y.html_description" ></div>
+	<div class="filter-accordion filter" ng-repeat="z in y.value track by $index"  style="border-bottom:1px solid #ddd; width:100%; padding-left:5px; float:right;">
+				<label  for="{{x+'_'+$index}}" style="width:100%;">
+                        	<span  style="font-size:3vw; line-height:30px; margin:0 auto; text-align:right; width:100%; height:auto" >
+					<span for="{{x+'_'+$index}}" ng-bind-html="z.display_name" style="text-align:left; margin:0 auto; float:left; width:80%; font-size:3vw"></span>
+					<input ng-if="y.input_type=='check_box'" id="{{x+'_'+$index}}"  ng-click="changecheck(z,x,x+'_'+$index)" ng-value="z.id" type="checkbox" style="vertical-align:middle; width:20%">
+					<input ng-if="y.input_type=='radio_button'" id="{{x+'_'+$index}}"  value="{{z}}" type="radio" name="{{x}}" style="vertical-align:middle; width:20%" ng-click="changeradio(z,x)"> 
+						
+				</span></label>
+	</div>
+	
+
+
+	<button class="button button-dark button-small" style="float:right; margin-top:5px; margin-right:10%; background-color:#e0493e; color:white;" ng-click="resetSection(x,y)">Reset</button>
+
+</div>
+
+
+
+
+<!--
+
+<div ng-repeat="(x,y) in filterList track by $index">
+	<div class="button button-block button-dark" ng-click="changeContent(item)">
+		<span >{{x}}<span>
+	</div>
+	<ion-scroll  direction="x" style="width:95vw; margin:0 auto; margin-top:10px; background-color:#f4f4f4">
+  		<div  class="wide">
+			<div ng-repeat="z in y.value" style="margin-left:10px; border:1px solid #ddd; min-width:20vw; padding:2px;">
+                        	<h6 class="name checkboxx" style="white-space:normal; line-height:3vw; font-size:3vw; padding:0px;">
+					<input type="checkbox" style="vertical-align:middle"> 
+						{{z.name}}
+				</h6>
+			</div>
+                </div>
+        </ion-scroll>
+</div>
+-->
+<div style="height:100px">
+</div>		
+
+
+
+
+
+
+
+
+</ion-content>
+
+
+
+<div class="tabs tabs-btm" style="height:15vw;">
+	<div class="row" style="background-color:white; height:15vw; vertical-align:middle; z-index:15">
+		<button class="col-40 button button-block button-small button-dark" ng-click="applyfilter()" style="font-size:4vw; margin:0 auto;line-height:4vw; height:12vw; vertical-align:middle;">
+		<strong>Apply</strong>
+		</button>
+		<div class=""></div>
+		<button class="col-40 button button-block button-small  button-assertive button-outline" ng-click="clearfilter()" style="font-size:4vw; vertical-align:middle; margin:0 auto;height:12vw; background-color:#e0493e; color:white; line-height:4vw;">
+		<strong>Clear All</strong>
+		</button>
+	</div>
+</div>
+</ion-modal-view>

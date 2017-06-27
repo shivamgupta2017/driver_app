@@ -1,0 +1,82 @@
+<ion-modal-view ng-controller="SettingsCtrl" class="settings">
+
+<ion-header-bar class="pinro-header header-shadow">
+    
+      <button class="button button-clear text-button" ng-click="closeSettingsModal()">Close</button>
+  
+    <h1 class="title">Settings</h1>
+  </ion-header-bar>
+
+<div ng-include="'templates/common/loading.html'" ng-show="loading"></div>
+        
+	<ion-content>
+
+<ion-list>
+    
+
+    <ion-item class="item-divider">
+        PROFILE SETTINGS
+    </ion-item>
+
+    <ion-item class="item-icon-right " ng-click="openEditProfileModal()">
+        Edit Profile
+        <i class="icon ion-ios-arrow-forward"></i>
+    </ion-item>
+    <ion-item class="item-icon-right " ng-click="openChangePasswordModal()">
+        Change Password
+        <i class="icon ion-ios-arrow-forward"></i>
+    </ion-item>
+    <ion-item class="item-icon-right" ng-click="add_new_address()">
+        Add new Address
+        <i class="icon ion-ios-arrow-forward"></i>
+    </ion-item>
+    <ion-item class="item-icon-right " ng-if="false" ng-click="openSelectLanguageModal()">
+        Select Language
+        <i class="icon ion-ios-arrow-forward"></i>
+    </ion-item>    
+   <!-- <ion-item class="item-toggle">
+        Send push notifications
+        <label class="toggle toggle-assertive">
+   <input type="checkbox" checked>
+   <div class="track">
+     <div class="handle"></div>
+   </div>
+</label>
+        
+    </ion-item>-->
+   <!-- <ion-item class="item-toggle">
+    Refresh automatically
+        <label class="toggle toggle-assertive">
+   <input type="checkbox">
+   <div class="track">
+     <div class="handle"></div>
+   </div>
+</label>
+        
+    </ion-item>-->
+    
+<!--
+     <ion-item class="item-divider">
+        SUPPORT
+    </ion-item>
+    <ion-item >
+        About Pinro
+    </ion-item>
+    <ion-item >
+        Support
+    </ion-item>
+    <ion-item >
+        Find your shop
+    </ion-item>
+    <ion-item >
+        We’re hiring
+    </ion-item>
+	-->		
+<div class="footer-button">
+    <button class="button button-assertive button-block button-round" ng-click="closeSettingsModal(); logout()">Log Out</button>
+</div>
+</ion-list>
+
+
+</ion-content>
+</ion-modal-view>

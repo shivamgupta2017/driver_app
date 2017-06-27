@@ -1,0 +1,65 @@
+<ion-modal-view ng-controller="ProfileCtrl" class="profile" hide-nav-bar="true">
+
+<ion-content>
+
+
+<div class="cover-photo" style="background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)), url('img/profile-image@2x.jpg');background-size: cover;">
+ <button class="button button-clear text-button" ng-click="closeProfileModal()">CLOSE</button>
+    <div class="profile-info">
+        <h1 class="regular-font">{{full_name || user.username}}</h1>
+        <p class="regular-font">
+            <span ng-if="user.billing.city">{{user.billing.city}},</span>
+            <span ng-if="user.billing.country">{{user.billing.country}}</span>
+            </p>
+    </div>
+</div>
+
+ <div class="title">
+     <h4>My Profile</h4>
+ </div>
+
+<div class="row tab">
+    <div class="col" ng-click="show = 'orders'"  ng-class="{'color-warm-grey': show=='orders'}">
+        <h5 ng-class="{'color-light-grey': show=='offers'}">{{user.orders_count || 0}}</h5>
+        orders
+    </div>
+    <div class="col" ng-click="show = 'offers'" ng-class="{'color-warm-grey': show=='offers'}">
+        <h5 ng-class="{'color-light-grey': show=='orders'}">{{offerImages.length}}</h5>
+        offers
+    </div>
+</div>
+
+<div class="cart-list" ng-if="show == 'orders'">
+			<!--<ul>
+				<li class="list-item" ng-repeat="item in productList | orderBy:filterBy | filter:search" ng-click="goToProduct(123)">
+					<div class="product-image" style="background: url('{{item.imgUrl}}'); background-size:contain; background-repeat: no-repeat; height: 200px;">
+					</div>
+					<h5>{{item.name}}</h5>
+					<small class="category-name">{{item.category}}</small>
+					<small class="price">&#8377;{{item.price}}</small>
+				</li>
+			</ul>-->
+
+                <ion-list ng-if="orderList.length">
+  <ion-item ng-repeat="order in orderList track by $index" class="item-icon-right">
+            
+             <h5>Order #{{order.number}}</h5>
+                    <div ng-repeat="item in order.line_items">
+                        <p>{{item.name}}</p>
+                    </div>
+                            <small class="">Status: {{order.status}}</small>
+                            <h3 class="price">{{order.total}} {{order.currency}}</h3>
+            <i class="icon ion-android-close color-light-grey" ng-click="removeItem(item)"></i>
+  </ion-item>
+            </ion-list>
+
+		</div>
+
+<div class="offer-list" ng-if="show == 'offers'">
+    
+    <img ng-src="{{offer.url}}" ng-repeat="offer in offerImages" width="100%">
+
+</div>
+
+</ion-content>
+</ion-modal-view>

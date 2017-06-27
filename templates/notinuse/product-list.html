@@ -1,0 +1,106 @@
+<ion-view view-title="{{categoryName}}" class="product">
+
+	<div class="bar bar-subheader">
+		<div class="button-bar bar-dark">
+		<div class="row">
+			<!--<div class="col" ng-disabled="true" style="background-color:white">
+				<div style="margin-top:10px;">Sort By</div>
+			</div>
+-->
+			<button class="col tabb" ng-click="getprodcts('name',1); scrollToTop()" ng-disabled="namebtn">
+				Name
+			</button>
+			<button class="col tabb"  ng-click="getprodcts('price',1); scrollToTop()" ng-disabled="pricebtn">
+				Price
+			</button>
+
+
+
+			<!--<div class="col" ng-click="order = 'name'; scrollToTop()">
+				<a  class="button"  ng-class="{'color-black': order=='name'}">name</a>
+			</div>
+			<div class="col"  ng-click="order = sorterFunc; scrollToTop()">
+				<a class="button"  ng-class="{'color-black': order==sorterFunc}">price</a>
+			</div>-->
+
+
+	<!--		<div class="col" ng-click="getprodcts('name'); scrollToTop()">
+				<a  class="button"  ng-class="{'color-black': order=='name'}">name</a>
+			</div>
+			<div class="col"  ng-click="getprodcts('price'); scrollToTop()">
+				<a class="button"  ng-class="{'color-black': order=='price'}">price</a>
+			</div>
+-->
+		<div class="col">
+				<a class="button button-icon"  ng-click="openFilterModal();"><i style="color:black" class="icon ion-ios-settings-strong"></i></a>
+			</div>
+
+
+
+			<!--<div class="col">
+				<a class="button button-icon"  ng-click="changetolist();" ng-class="{'color-grapefruit1': layoutlist==true}"><i class="icon ion-ios-list-outline"></i></a>
+				<a class="button button-icon"  ng-click="changetogrid();" ng-class="{'color-grapefruit1': layoutgrid==true}"><i class="icon ion-grid"></i></a>
+			</div>-->
+		</div>
+		
+		</div>
+	</div>
+
+
+
+	<ion-content class="has-subheader" style="background-color:#fff">
+
+
+
+	<div  class="list list-item" style="margin-top:30px; height:100%;" ng-hide="btnShow">There are no products</div>
+		<!--<div   style="height:100%; padding:0px; margin-bottom:10px" ng-if="layoutlist">
+			<ul>
+				<li class="list-item" ng-repeat="item in productList track by $index" style="border-top:1px solid #ddd; background-color:white; text-align: center; border-radius:5px; padding:0px; height:30vw;" ui-sref="app.single({id: item.id})">
+					<div  style="height:90%; width:30%; solid #ddd; display:inline-block; float:left; background: url('{{item.images[0].src}}'); background-size:contain; background-position:center; background-repeat:no-repeat">
+					</div>
+				<h6 ng-if="item.name.length>52" style="font-size:3.5vw; line-height:5vw; min-height:10vw; margin-left:5px; text-align:left">{{item.name | limitTo:52}} . . .</h6>
+				<h6 ng-if="item.name.length<=52" style="line-height:5vw; font-size:3.5vw; min-height:10vw; margin-left:5px; text- align:left">{{item.name}}</h6>
+					<small class="category-name" style="line-height:4vw; text-align:left">{{item.categories[0].name}}</small>
+					<div><span ng-if="item.sale_price!=''">
+						<span class="price" style="text-decoration: line-through; font-weight:bold; color:red"> 
+						<span style="font-weight:normal; color:black;">&#8377;{{item.regular_price}}&nbsp;&nbsp;</span>
+					</span>
+					</span>
+					<span class="price">&#8377;{{item.price}}</span></div>
+				</li>
+			</ul>
+		</div>-->
+
+
+
+		<div class="product-list" ng-if="layoutgrid" ng-class="{'list-view': layout=='list'}"  ng-show="!loading" style="height:100%; padding:0px;">
+			<ul class="reviews-star">
+				<li class="list-item" ng-repeat="item in productList track by $index" style="border-bottom:1px solid #ddd;border-right:1px solid #ddd; background-color:white; text-align: center;  padding:0px; height:60vw;" ui-sref="app.single({id: item.id})">
+					<div  style="height:50%; background: url('{{item.images[0].src}}'); background-size:contain; background-position:center; background-repeat:no-repeat">
+					</div>
+					
+				<h6 ng-if="item.name.length>65" style="font-size:3vw; line-height:4vw; min-height:12vw;">{{item.name | limitTo:65}} . . .</h6>
+				<h6 ng-if="item.name.length<=65" style="line-height:4vw; font-size:3vw; min-height:12vw;">{{item.name}}</h6>
+					<small class="category-name" style="line-height:3vw">{{item.categories[0].name}}</small>
+				
+					<span ng-if="item.sale_price!=''">
+					<span class="price" style="text-decoration: line-through; font-weight:bold; color:red"> 
+						<span style="font-weight:normal; color:black;">&#8377;{{item.regular_price}}&nbsp;&nbsp;</span>
+					</span>
+					</span>
+					
+					<span class="price">&#8377;{{item.price}}</span>
+				</li>
+			</ul>
+		</div>
+
+
+
+
+		
+        <ion-infinite-scroll  on-infinite="loadMoreProducts()" spinner="ios" distance="50%" ng-if="more&&(!isfilter)" style="z-index:10"></ion-infinite-scroll>
+        <ion-infinite-scroll on-infinite="loadMoreFilterProducts()" spinner="ios" distance="50%" ng-if="more&&isfilter" style="z-index:10"></ion-infinite-scroll>
+	</ion-content>
+
+
+</ion-view>

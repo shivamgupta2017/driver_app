@@ -1,0 +1,120 @@
+<ion-modal-view ng-controller="ProfileCtrl" hide-nav-bar="true">
+
+
+<ion-header-bar class="pinro-header">
+  
+      <button class="button button-clear text-button" ng-click="closeProfileModal()">Close</button>
+	
+    <h3 class="title" style="margin-left:5%;">Your Orders</h3>
+
+  </ion-header-bar>
+
+  <div ng-include="'templates/common/loading.html'" ng-show="loading"></div>
+
+<ion-content  class="profile" style="background-color:#f4f4f4">
+
+<!--
+ <div class="cover-photo-holder">
+     <img ng-src="{{user.gravatar}}">
+     <h3 class="regular-font">{{username.first_name +' '+username.last_name}}</h3>
+   
+    
+</div>
+-->
+
+
+
+<div class="order-list" ng-if="show == 'orders'">
+                <!--<ion-list ng-if="orderList.length">
+          <ion-item class="item-divider">
+          Order history
+          </ion-item>
+            <ion-item ng-repeat="order in orderList track by $index" class="item-icon-right">
+                      
+                       <h5>Order ref #{{order.number}}</h5>
+                              <div ng-repeat="item in order.line_items">
+                                  <p>{{item.name}}</p>
+                              </div>
+                                      <small class="">Status: {{order.status}}</small>
+                                      <h3 class="price">{{order.total}} {{order.currency}}</h3>
+            </ion-item>
+                      </ion-list>-->
+          	
+
+
+      <div ng-if="showmessage" class="padding"> No orders done yet </div>
+      <div ng-if="items.length" >
+<!-- 1 loop -->
+      <div class="card" ng-repeat="order in items track by $index" ng-if="order.order_products.length>0">
+    
+    	     <div class="item item-divider">
+
+          		<div class="row">
+              		<div class="col col-67">
+                  			<div>Delivery Date: {{order.delivery_date | date:'dd MMM'}}</div>
+              		</div>
+              		<div class="col text-right status-holder" ng-if="order.order_products.length">
+                  			<span class="status-badge">{{order.status}}</span>
+              		</div>
+          		</div>
+
+    	     </div>
+ 
+     	        <div class="item item-text-wrap">
+<!-- 1loop -->      <div class="line-item" ng-repeat="it in order.order_products">
+
+                <!--     <div ng-repeat="it in item.order_products"> -->
+                      		<h4>{{it.product_name}} {{it.weight+it.unit}} x {{it.quantity}}</h4>
+				<h5>&#8377; {{it.price}}</h5>
+                      		<!-- <div ng-repeat="variation in item.meta" style="line-height: 0px; text-transform: uppercase; ">
+                              	<small>&#8377;{{variation.label}}: {{variation.value}}</small>
+                        	</div> -->
+
+                   <!--  </div>      -->
+    			
+             	    </div>
+                         
+
+    	       </div>
+
+	       <!-- <div class="item item-text-wrap" ng-if="(order.payment_method=='COD'||order.payment_method=='cod')&&(order.shipping_total!='0.00')" style="padding-bottom:5px">
+		          
+              	<h4>Shipping and COD charges : &#8377;&nbsp;{{order.shipping_total}}</h4>
+	       </div> -->
+      	      
+          <!-- <div class="item item-text-wrap" ng-if="(order.payment_method=='Online'||order.payment_method=='online'||order.payment_method=='instamojo')&&(order.shipping_total!='0.00')" style="padding-bottom:5px">
+      			<h4>Shipping charges : &#8377;&nbsp;{{order.shipping_total}}</h4>
+      	</div> -->
+
+	
+<!--  	<div class="item item-divider card-footer">ng-class="{'pending': !order.transaction_id.length}">
+ -->		
+			
+		
+    		 <div class="row">
+        		<div  class="col" ng-if="(order.payment_method=='COD')||(order.payment_method=='cod')">
+			COD
+			</div>
+			<div class="col" ng-if="(order.payment_method=='Online')||(order.payment_method=='instamojo')||(order.payment_method=='online')">
+			Paid online
+			</div>
+        		<div class="col price-holder">
+            		Total &#8377;&nbsp;{{order.paid_amount}}
+        		</div>
+    		</div>
+
+	</div> 
+
+
+  
+</div>
+            </div>
+
+		</div>
+
+				
+        <!-- <ion-infinite-scroll on-infinite="loadMoreOrders()" spinner="ios" distance="10%" ng-if="more" style="z-index:10"></ion-infinite-scroll>
+ -->
+
+</ion-content>
+</ion-modal-view>

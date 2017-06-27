@@ -1,0 +1,40 @@
+<ion-view view-title="Editorial" hide-back-button="false">
+
+	<ion-nav-title style="margin-left:0px;" >  
+		<img class="home-logo" src="img/l5.png"  style="width:30vw; vertical-align: middle; margin: 0 auto;">
+	</ion-nav-title>
+
+
+	<!--<div class="bar bar-subheader item-input-inset subheader-with-input" style="margin-top:10px; border:1px solid #ddd;  border-radius:5px; height:40px" id="searchbar">
+  		<label class="item-input-wrapper" style="background-color:white; z-index:13"> 
+    			<input type="search" placeholder="Type here" ng-model="search1" style="margin-top:10px">
+  		</label>
+  		<img src="img/icons/search_icon.svg">
+	</div> -->
+		<ion-content scroll="true" style="background-color:#f4f4f4"> <!--on-scroll="getScrollPosition()"-->
+				
+				<div style="width:100vw;" class="list">
+				     	<li class="item" ng-repeat="product in orders" style="float:left; width:100vw; height:35vw; border-style: groove; border-color: black;">
+						   	
+							
+							   		<div style="height:70%; width:33vw; float:left; background-image:url(https://www.minbazaar.com/subs/admin/{{product.image}}); background-size:contain; background-repeat:no-repeat; background-position:center; border-style: solid; border-color: black; ">
+									</div>
+									
+									<div style="text-align: center; display: inline-block;">
+									
+										<h3>{{product.product_name}}</h3>
+									
+									</div>
+									<div>
+										{{product.weight | number:0}}Litre x {{product.quantity | number:0}} = {{product.weight*product.quantity}} pouches
+									</div>
+		     			</li>
+	     		</div>		
+		</ion-content>
+		
+
+			<div style="position: fixed; bottom: 20px; width: 100vw">
+	    		<button class="button button-full button-assertive" ng-click="mark_me_deliver(orders[0].id, orders[0].product_id, orders[0].unit_mapping_id)">Mark as Delivered</button>
+			</div>
+		 
+</ion-view>

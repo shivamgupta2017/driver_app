@@ -1,0 +1,54 @@
+<ion-view view-title="Feedback" class="signin">
+<div class="bar bar-header pinro-header header-shadow">
+ <button class="button button-icon icon ion-ios-arrow-back" ng-click="goback()"></button>
+  <div class="h1 title">Feedback</div>
+</div>
+
+<!--<div ng-include="'templates/common/loading.html'" ng-show="loading"></div>-->
+
+	<ion-content class="has-header" style="padding-top:10%">
+<form name="signForm"  novalidate >
+
+
+		<div class="signin-input-holder" style="">	
+			
+			<div  ng-if="!isloggedin" >Enter Your Details</div>
+			<ion-list>
+				
+				<ion-item class="item-input " style="border:1px solid #ddd; padding:0px; border-radius:5px;"  ng-if="!isloggedin">
+					
+					<input class="col-40" type="text" placeholder="First Name"  ng-model="User.first_name" required autocomplete="off">
+					<input class="col-40" type="text"  placeholder="Last Name"  ng-model="User.last_name" required autocomplete="off">
+
+				</ion-item>
+				<ion-item ng-if="!isloggedin" class="item-input " style="border:1px solid #ddd; margin-top:10px; padding:0px; border-radius:5px;">
+					
+					<input type="email" name="email" placeholder="Email"  ng-model="User.email" required autocomplete="off">
+
+				</ion-item>
+				<ion-item class="item-input " style="border:1px solid #ddd;  margin-top:10px; padding:5px; border-radius:5px;">
+					
+					<textarea  name="message" placeholder="Let us know how can we serve you better?"  rows="5" ng-model="User.message" required autocomplete="off"></textarea>
+
+				</ion-item>
+
+
+			</ion-list>
+		<div class="assertive">{{fError}}</div>
+
+		</div>
+		<div class="footer-button">
+			<h5 class="color-grapefruit m-t-b-0" ng-show="signUpError"> {{signUpError}}</h5>
+			<button class="button button-dark button-block button-round animated bounceIn" ng-click="validate()" >Submit</button>
+      
+		</div>
+
+
+
+
+		</div>
+
+
+	</form>
+	</ion-content>
+</ion-view>

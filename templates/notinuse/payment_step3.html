@@ -1,0 +1,41 @@
+<ion-view view-title="Order Status" class="payment" hide-back-button="true" hide-nav-bar="true">
+	
+	<ion-pane class="step3 has-header">
+
+        <h5>{{orderStatus}}</h5>
+        <div class="line-holder">
+                <img src="img/icons/top-line-end.svg" width="50%">
+        </div>
+
+        
+  <div class="content" ng-if="orderStatus=='Order accepted'">
+      <img class="animated bounceIn" src="img/icons/icon-success-outline.svg">
+      <h2 class="font-regular">Congratulations!</h2>
+      <h5>Your order has been accepted.</h5>
+  </div>
+  <div class="content" ng-if="orderStatus=='Payment Cancelled by you'">
+      <img class="animated bounceIn" src="img/icons/icon-failure-outline.png">
+      <h2 class="font-regular">Payment Cancelled!</h2>
+	
+      
+  </div>
+  <div class="content"  ng-if="orderStatus=='Payment Failed'">
+      <img class="animated bounceIn" src="img/icons/icon-failure-outline.png">
+        <h2 class="font-regular">Payment Failed</h2>
+  
+  </div>
+  <div class="content"  ng-if="orderStatus=='Payment Success'">
+      <img class="animated bounceIn" src="img/icons/icon-success-outline.svg">
+        <h2 class="font-regular">Payment Successful</h2>
+        <h5>Your order has been accepted. Thanks!! for your order</h5>
+  </div>
+
+<div class="footer-button">
+     <button class="button button-dark button-block button-round " ng-click="goToMain()">Got It!</button>
+</div>
+</div>
+
+
+		
+	</ion-pane>
+</ion-view>

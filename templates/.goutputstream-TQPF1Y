@@ -1,0 +1,66 @@
+<ion-view view-title="Editorial" hide-back-button="false">
+
+	<ion-nav-title style="margin-left:0px;" >  
+		<img class="home-logo" src="img/l5.png"  style="width:30vw; vertical-align: middle; margin: 0 auto;">
+	</ion-nav-title>
+
+
+<!----------------------------------------------------------------------------------------------------------------->
+	<!--<div class="bar bar-subheader item-input-inset subheader-with-input" style="margin-top:10px; border:1px solid #ddd;  border-radius:5px; height:40px" id="searchbar">
+  		<label class="item-input-wrapper" style="background-color:white; z-index:13"> 
+    			<input type="search" placeholder="Type here" ng-model="search1" style="margin-top:10px">
+  		</label>
+  		<img src="img/icons/search_icon.svg">
+	</div> -->
+<!------------------------------------------------------------------------------------------------------------------->
+	<ion-content  style="background-color:#f4f4f4"  id="contentsearch" style="background-image:url(img/back.jpg)"> <!--on-scroll="getScrollPosition()"-->
+
+        <!--<ion-refresher on-refresh="doRefresh()">
+        </ion-refresher>-->
+
+
+
+
+
+<!---------------------------------------------------------Categories ------------------------------------------------------------>
+<div style="height:100%; width:100vw; background-color:white; margin-bottom:100px">
+     <div ng-repeat="product in products" style="display:inline-block; width:49vw; height:60vw; margin-top:10px" ng-click="openCategory(category.id)">
+		
+		<div style="height:45%; background-image:url(https://www.minbazaar.com/subs/admin/{{product.image}}); background-position:center; background-repeat:no-repeat; background-size:contain">
+		</div>
+		<div style="height:20%;">
+			{{product.product_name}}
+		</div>
+		<div style="height:20%;  padding:10px 0px;">
+			<select style="display:inline-block; width:50%" ng-model="select">
+				<option ng-repeat="unit in product.unit_data" >{{unit.weight}} {{unit.unit}}</option>
+			</select>
+			<div style="display:inline-block; width:30%">
+				Rs {{select}}
+			</div>
+		</div>
+		<div style="height:15%">
+			
+			<button class="button button-small button-danger">Add</button>&nbsp;<button class="button button-small">Subscribe</button>
+		</div>
+     </div>
+
+</div>
+<!--------------------------------------------------------------categoriess end ---------------------------------------------------->
+
+
+
+
+
+
+            <div class="footer-button  animated fadeInUpBig" style="text-align:center; margin-top:10px; padding:0px; border-top:1px solid #ddd;">
+		<div> Enjoying the MINBazaar Experience ?</div>
+		<div class="row">
+             		<span style="border-right:1px solid #ddd;border-top:1px solid #ddd;" class="col"  ng-click="rateUs()">Yes</span>
+			<span style="border-left:1px solid #ddd;border-top:1px solid #ddd;" class="col"  ui-sref="feedback">No</span>
+		</div>
+	
+            </div>
+
+	</ion-content>
+</ion-view>

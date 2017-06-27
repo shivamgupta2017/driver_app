@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_user</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="input_username" transform="translate(1.000000, 1.000000)" stroke-width="2" stroke="#000000">
+            <g id="icon_user">
+                <g>
+                    <path d="M20,21 C20,15.4771525 15.5228475,11 10,11 C4.4771525,11 0,15.4771525 0,21" id="Combined-Shape"></path>
+                    <circle id="Oval-40" cx="10" cy="3" r="3"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

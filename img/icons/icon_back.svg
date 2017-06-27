@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="25px" viewBox="0 0 14 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_back</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <g id="icon_back" transform="translate(-1.000000, -1.000000)" stroke="#000000" stroke-width="2">
+            <g transform="translate(12.899495, 12.606602) rotate(-45.000000) translate(-12.899495, -12.606602) translate(4.399495, 4.106602)" id="Line">
+                <path d="M1.22182541,1.77817459 L16.2218254,1.77817459"></path>
+                <path d="M1,16.9558441 L1,1.95584412"></path>
+            </g>
+        </g>
+    </g>
+</svg>

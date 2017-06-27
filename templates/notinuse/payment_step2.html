@@ -1,0 +1,101 @@
+<ion-view view-title="Step 2" class="payment" cache-view="false" hide-back-button="true" hide-nav-bar="true">
+	
+
+
+
+	<ion-content class="step2">
+
+<h4 style="margin-top:40px">Your Order Summery</h4>
+</ion-item>
+
+
+
+
+
+<!--cash on delivery-->
+
+<div class="padding" ng-if="selected_method=='cod'">
+	<img src='img/icons/cod.png' height="100">
+ <h4>You have chosen to pay via</h4>
+ <h2>Cash on delivery</h2>
+  <!--<h5 class="">You have Chosen to pay through cash on delivery, extra Rs50 would be charged for the same<br></h5>-->
+
+  <div class="row"><div class="col">Cart Amount</div><div class="col">:&nbsp;{{cart_total}}</div></div>
+  <div class="row"> <div class="col">COD Charges</div><div class="col">:&nbsp;{{codCharges}}</div></div>
+    <div class="row"> <div class="col">Shipping Charges</div><div class="col">:&nbsp;{{shippingCharges}}</div></div>
+<div class="row"> <div class="col">Total</div>  <div class="col">:&nbsp;{{amount}}</div></div>
+
+  <div class="footer-button">
+      <button class="button button-dark button-block button-round button-outline " ng-disabled="disable" ng-click="payCashOnDelivery()">Confirm Order</button>
+    </div>
+</div>
+<!--cash on delivery ends-->
+
+<!--Payment via Instamojo (online)-->
+<div class="padding" ng-if="selected_method=='online'">
+	<img src='img/icons/cc.png' height="100">
+  <h4>You have chosen to pay via</h4>
+  <h2>Debit Card/ Credit Card/ Net Banking</h2>
+  <div class="row"> <div class="col">Total Cart Amount</div><div class="col">:&nbsp;{{cart_total}}</div></div>
+  <div class="row"> <div class="col">Shipping Charges</div>  <div class="col">:&nbsp;{{shippingCharges}}</div></div>
+<div class="row"> <div class="col">Total</div>  <div class="col">:&nbsp;{{amount}}</div></div>
+  <div class="footer-button">
+      <button class="button button-dark button-block button-round button-outline " ng-disabled="disable" ng-click="payOnline()">Pay &nbsp; &#8377;{{amount}} </button>
+    </div>
+</div>
+<!--Payment via Instamojo ends-->
+
+
+<!--card payment--><!--
+<div ng-if="payment_method_selected == 'card'">
+        <div class="line-holder">
+                <button class="button button-dark button-round button-outline" ng-click="scanCard()">Scan card</button>
+        </div>
+        
+  <div class="card-input-holder">
+  
+  <ion-list>
+    <ion-item class="item-input ">
+          
+    <input type="text" placeholder="Cardholder Name" ng-model="card.name">
+
+      </ion-item>
+      <ion-item class="item-input ">
+          
+    <input type="text" placeholder="Card Number" ng-model="card.number" name="cardNumber" cc-number>
+
+      </ion-item>
+      
+      <ion-item class="item-input">
+          
+    <input type="text" placeholder="MM" ng-model="card.exp_month" cc-exp-month>
+                
+
+      </ion-item>
+      <ion-item class="item-input">
+          
+    <input type="text" ng-model="card.exp_year" placeholder="YY">
+
+      </ion-item>
+      <ion-item class="item-input">
+        
+    <input type="text" placeholder="CVC" ng-model="card.cvc" cc-type="cardNumber.$ccType">
+
+      </ion-item>
+  </ion-list>
+
+  </div>
+  
+  <div class="footer-button">
+     <button class="button button-dark button-block button-round button-outline " ng-click="makeStripePayment(card)">Confirm Order</button>
+  </div>
+
+</div>-->
+<!--card payment section end-->
+
+</div>
+
+
+		
+	</ion-content>
+</ion-view>

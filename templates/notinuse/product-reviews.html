@@ -1,0 +1,52 @@
+<ion-view view-title="Reviews" class="signin">
+	<div class="bar bar-header pinro-header header-shadow">
+ 		<button class="button button-icon icon ion-ios-arrow-back" ui-sref="signin"></button>
+  		<div class="h1 title">Reviews</div>
+	</div>
+	<ion-content class="has-header" style="padding:10px; background-color:#f4f4f4;">
+
+
+	<div class='row' style="height:auto; background-color:white; border:1px solid #ddd;"  ng-if="isloggedin">
+		<div style="width:30%;  background-image:url({{imgurl}}); background-size:contain; background-position:center; background-repeat:no-repeat"></div>
+		<div style="width:70%;  margin-left:5px"><div style="font-family:verdana; text-align:left">{{product_name}}</div><div style="font-family:verdana; text-align:left; color:gray">{{cname}}</div><rating required style="display:inline-block; height:5vw; line-height:5vw;" ng-model="reviewobj.rating" max="5"></rating></div>
+	</div>
+	<div class="row" style="background-color:white; border:1px solid #ddd;" ng-if="isloggedin">
+		<textarea style="width:100%" required name="message" placeholder="Write your review"  rows="5" ng-model="reviewobj.comment_content"></textarea>
+
+	</div>
+
+<div ng-if="isloggedin" class="row" style="background-color:white; border-left:1px solid #ddd; border-bottom:1px solid #ddd; border-right:1px solid #ddd;">					
+		<button class="button button-dark button-small" ng-click="submita()" style="margin-right:10px; margin-top:10px" >Submit Your Review</button>			
+<div  class="assertive" ng-if="errorMsg" style="margin-top:10px"">{{errorMsg}}</div>			</div>		
+
+
+<h5>Reviews ({{reviewsList.length}})</h5>
+
+
+
+	<div class="reviews-star" ng-repeat="review in reviewsList" style="background-color:white; height:auto; width:100%; border:1px solid #ddd; text-align:left;">
+		<div style="height:auto; margin-top:10px">
+			<div style="text-align:left;  margin-left:10px; display:inline-block;">
+				<img src="img/icons/icon_user.svg" style="height:4vw; margin-right:5px"></img>  {{review.name| limitTo:17}} <span ng-if="review.name.length>17">...</span>
+			</div>
+			<span class="color-warm-grey" style="float:right; margin-right:10px"><i class="icon ion-clock"></i> {{getDatef(review.date_created)}}</span> 
+		</div>
+		<div style="width:100%; text-align:left; float:left; margin-left:10px" class="color-warm-grey">
+			<div style="float:left; vertical-align:middle; font-size:4vw; height:5vw">
+					{{review.rating}}
+			</div>
+			<rating class="inactiveLink" style="text-align:left; display:inline-block; height:5vw; line-height:5vw; margin-left:10px;" ng-model="review.rating" max="5"></rating>
+		</div>
+		<p style="text-align:left; margin-left:10px; display:block;">
+					{{review.review}}
+		</p>
+				
+	</div>
+
+
+
+
+		
+
+	</ion-content>
+</ion-view>

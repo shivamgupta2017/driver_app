@@ -1,0 +1,84 @@
+<ion-view view-title="Signup" class="signin" cache-view="false" >
+<div class="bar bar-header pinro-header header-shadow">
+ <button class="button button-icon icon ion-ios-arrow-back" ui-sref="signin"></button>
+  <div class="h1 title">Signup</div>
+</div>
+
+<!--<div ng-include="'templates/common/loading.html'" ng-show="loading"></div>-->
+
+	<ion-content class="has-header">
+<form name="signForm"  novalidate >
+
+
+		<div class="signin-input-holder">
+			
+
+			<ion-list>
+				<ion-item class="item-input ">
+					<i><img src="img/name.png" height="22" width="22" ></i>
+					<input class="col-40" type="text" name="email" placeholder="First Name"  ng-model="user.first_name" required autocomplete="off">
+					<input class="col-40" type="text" name="email" placeholder="Last Name"  ng-model="user.last_name" required autocomplete="off">
+
+				</ion-item>
+				<ion-item class="item-input ">
+					<i><img src="img/icons/icon_email.svg"></i>
+					<input type="email" name="email" placeholder="Email"  ng-model="user.email" required autocomplete="off">
+
+				</ion-item>
+				<ion-item class="item-input ">
+					<i><img src="img/icons/icon_lock.svg"></i>
+					<input  class="col-50"type="password" name="password" ng-change="analyze(user.password)" placeholder="********" ng-model="user.password" required autocomplete="off"> <span class="col-30" style="font-size:12px">{{pStrengthText}}</span>
+
+				</ion-item>
+				
+              			<div ng-style="passwordStrength"></div>
+            			
+				
+				<ion-item class="item-input " ng-class="{'has-errors': signForm.confirm_pass2.$error.match}">
+					<i><img src="img/icons/icon_lock.svg" ></i>
+					<input type="password" name="confirm_pass2"  placeholder="********" ng-model="confirm_pass" ng-match="user.password" required autocomplete="off">
+
+				</ion-item>
+                	<!--<ion-item class="item-input " ng-show="false">
+					<i><img src="img/icons/icon_user.svg" ></i>
+					<input type="text" name="username" placeholder="Username" ng-model="user.username" required autocomplete="off"> 
+				</ion-item>-->
+				
+                		<ion-item class="item-input m" >
+					<i><img src="img/icons/icon_mobile.svg" height="22" width="22"></i>
+					<input   class="col-40" style="padding-right:0; position:relative;" type="text" name="mobile" placeholder="Mobile No." ng-model="user.phone" ng-pattern="phoneNumbr" required>
+					<!--<button ng-show="status4" class="col-40 button button-small button-dark" style="border-radius:15px" ng-click="generateOTP()"  ng-disabled='sendotp'><div style="margin:0 auto"><div style="line-height:0; margin:0 auto;">{{otpBtn}}</div></div></button>-->
+				</ion-item>
+				<!--  <ion-item class="item-input" ng-show="showotpinput()">			
+					<input  type="text" name="otp" placeholder="Enter OTP" ng-model="user.otp"  required>
+						
+				</ion-item>-->
+
+			</ion-list>
+		<!--	
+			<div class="positive" ng-show="showotpinput()">OTP has been sent to your Mobile Number<span ng-show="resend"> Resend link will be open after 2 minutes ({{minutes}}:{{seconds}} left)</span><span ng-hide="resend">Haven't you got an OTP? Resend Agan</span></div>
+			<span class="assertive" ng-show="signForm.mobile.$error.pattern">Please Enter the Phone no matching  pattern-9999999999</span> -->
+			
+
+		</div>
+		<div class="footer-button">
+			<h5 class="color-grapefruit m-t-b-0" ng-show="signUpError"> {{signUpError}}</h5>
+			<button class="button button-dark button-block button-round animated bounceIn" ng-click="signUp()" ng-disabled="signForm.$invalid">Signup</button>
+      
+	  <a class="button button-clear button-full button-stable" ui-sref="app.editorial" style="color:black;"><strong> <i class="icon ion-home"></i> &nbsp; Continue</strong></a>
+	  <h5 class="light-font" ui-sref="signin">Already have an account? <span class="semibold-font">Sign In</span></h5>
+		
+		<!--terms-->
+		<p class="padding light-font color-warm-grey" ng-click="openTermsModal()">Terms &amp; Conditions</p>
+		
+		</div>
+
+
+
+
+		</div>
+
+
+</form>
+	</ion-content>
+</ion-view>
