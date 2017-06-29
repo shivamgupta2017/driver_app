@@ -1,5 +1,5 @@
 // Ionic Starter App
-
+//AIzaSyA9dQ2le_XofVAbsIAdX9rJg9m0q3ph7OM
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
@@ -10,8 +10,18 @@ angular.module('starter', ['ionic','ionic.rating','ionic-timepicker', ,'checklis
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
+    //alert('hello p :');
 	
- 
+  navigator.geolocation.getCurrentPosition(function getCoor(response)
+  {
+    alert('shivam :'+JSON.stringify(response));
+
+  }, function errorCoor(err)
+  {
+    alert('shivam err:'+JSON.stringify(err));
+  }, {maximumAge:60000, timeout:5000, enableHighAccuracy:true})
+
+
   document.addEventListener("offline", onOffline, false);
 	document.addEventListener("online", onOnline, false);
 	function onOffline() {
@@ -133,7 +143,7 @@ angular.module('starter', ['ionic','ionic.rating','ionic-timepicker', ,'checklis
         }
       }
     })
-    .state('app.singlesubscription', {
+    /*.state('app.singlesubscription', {
       url: '/singlesubscription/:product_id/:subscription_id/:unit_mapping_id',
       views: {
         'menuContent': {
@@ -288,7 +298,7 @@ angular.module('starter', ['ionic','ionic.rating','ionic-timepicker', ,'checklis
         controller: 'zipCtrl'
       }
     }
-  });
+  })*/;
   // if none of the above states are matched, use this as the fallback
 $urlRouterProvider.otherwise('/app/editorial');
 $ionicConfigProvider.backButton.previousTitleText(false).text('');

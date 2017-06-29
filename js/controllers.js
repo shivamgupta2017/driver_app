@@ -19,10 +19,24 @@ angular.module('starter.controllers', [])
   //$getNotification
 
 	//$pinroUiService.showLoading();
-	
-	Maestro.$getSubscribePackages(AuthService.id()).then(function(res){	
-		$scope.nextdaysselection=res.data.response_data;
-		//alert(JSON.stringify($scope.nextdaysselection));
+	/*Maestro.$get_my_current_location().then(function(res)
+  { 
+    alert('shivam :'+JSON.stringify(res));
+
+    //$scope.nextdaysselection=res.data.response_data;  
+    //alert(JSON.stringify($scope.nextdaysselection));
+    //$scope.selectedSize={};
+    //$scope.products=
+    //$pinroUiService.hideLoading();
+  })
+*/
+
+
+	Maestro.$getSubscribePackages(AuthService.id()).then(function(res)
+  {	
+
+		$scope.nextdaysselection=res.data.response_data;	
+    //alert(JSON.stringify($scope.nextdaysselection));
 		//$scope.selectedSize={};
 		//$scope.products=
 		//$pinroUiService.hideLoading();
@@ -880,8 +894,8 @@ $scope.allImages = [];
                   $pinroUiService.hideLoading();
                   if(($scope.data.orders.length==0)&&($scope.data.package.length==0)&&($scope.data.subscription.length==0))
                   {
-                  	alert('length is lesser than 1');
-                  	 window.plugins.toast.show("No items yet to deliver..! Golu bhyya aaram karo ab", 'long', 'bottom');
+                  	//alert('length is lesser than 1');
+                  	// window.plugins.toast.show("No items yet to deliver..! Golu bhyya aaram karo ab", 'long', 'bottom');
                   	//shivam
                   }
          			//alert('hello curr response o:'+JSON.stringify($scope.data));     
@@ -901,11 +915,15 @@ $scope.allImages = [];
 
            $pinroUiService.showLoading();
             Maestro.$delivery_service($scope.selected).then(function(res){
+            
+              alert('shivam :'+JSON.stringify(res));
+              
             if (res.data.response.status===1) 
             {
     	              $pinroUiService.hideLoading();
- 	  				 window.plugins.toast.show("On the way has been marked, get there fast....!", 'long', 'bottom');
+ 	  			      	// window.plugins.toast.show("On the way has been marked, get there fast....!", 'long', 'bottom');
         	          $scope.selected={};
+
             }
             }, function(err){
               alert(JSON.stringify(err));
@@ -973,38 +991,40 @@ $scope.allImages = [];
     {
         $scope.orders=res.data.response_data;
         $pinroUiService.hideLoading();
-      	//alert(' getting resposen :'+JSON.stringify($scope.orders));
+        //alert(' getting resposen :'+JSON.stringify($scope.orders));
     }
 
 	});
 
 $scope.mark_me_deliver=function(order_id ,single_subscription_id, unit_mapping_id)
 {
-  
-  alert('unit mapping id :'+unit_mapping_id);
+    
+
+    
   if($scope.extra_data.type==='product')
   { 
 
-    $scope.extra_data.type='subscription';
-    $scope.extra_data.subscription_id=order_id;
-    $scope.extra_data.product_id=single_subscription_id;
-  	$scope.extra_data.package_id=$scope.extra_data.package_id;
-  	$scope.extra_data.unit_mapping_id=unit_mapping_id;
+    $scope.extra_data.type = 'subscription';
+    $scope.extra_data.table_id = order_id;
+    $scope.extra_data.subscription_id = $scope.orders[0].subscription_id;
+    $scope.extra_data.product_id = single_subscription_id;
+  	$scope.extra_data.package_id = $scope.extra_data.package_id;
+  	$scope.extra_data.unit_mapping_id = unit_mapping_id;
   }
 	else if($scope.extra_data.type==='package')
 	  {
 	  	$scope.extra_data.subscription_id=$scope.subscription_id;
 	  }
-
     $pinroUiService.showLoading();
-    Maestro.$update_order($scope.extra_data).then(function(res){
-   // alert('hlelo'+JSON.stringify(res));
-    if(res.data.response.status===1)
-    { 
-        $pinroUiService.hideLoading();
-  		window.plugins.toast.show("Package has been marked to deliver ...!", 'long', 'bottom');
-        $state.go('app.editorial');
-    }
+    Maestro.$update_order($scope.extra_data).then(function(res)
+    {
+    
+      if(res.data.response.status===1)
+      { 
+          $pinroUiService.hideLoading();
+    	   //	window.plugins.toast.show("Package has been marked to deliver ...!", 'long', 'bottom');
+          $state.go('app.editorial');
+      }
 
   });
 
@@ -1012,8 +1032,8 @@ $scope.mark_me_deliver=function(order_id ,single_subscription_id, unit_mapping_i
 
   $scope.subscribepackage = function(size_id,package_id)
     {
-		$state.go('app.step_1',{size_id:size_id,package_id:package_id,is_subs:true,is_package:true});		
-	}
+	     	$state.go('app.step_1',{size_id:size_id,package_id:package_id,is_subs:true,is_package:true});		
+  	}
 
 
 
@@ -1605,44 +1625,34 @@ $scope.openTimePicker=function(dates){
 /**********************************************************************************************************************************
 ********************************************************* Products by category id *************************************************
 **********************************************************************************************************************************/
-.controller('subscriptionsCtrl', function ($scope,$http,$stateParams,$ionicLoading,$localStorage, $rootScope, $ionicPopup, $interval, $state, $ionicHistory, $ionicScrollDelegate,$ionicPlatform,ionicTimePicker, Maestro, $dataService,$ionicModal,$pinroUiService,$ionicNavBarDelegate, CartService, AuthService) {
-	//$scope.subscriptions
-  	$pinroUiService.showLoading();
-  	Maestro.$getCustomerSubscriptions(AuthService.id()).then(function(res){      
-      		$scope.subscriptions=res.data.response_data;
-		$pinroUiService.hideLoading();
+.controller('subscriptionsCtrl', function ($scope,$http,$stateParams,$ionicLoading,$localStorage, $rootScope, $ionicPopup, $interval, $state, $ionicHistory, $ionicScrollDelegate,$ionicPlatform,ionicTimePicker, Maestro, $dataService,$ionicModal,$pinroUiService,$ionicNavBarDelegate, CartService, AuthService) 
+{
+  	
+    $pinroUiService.showLoading();
+  	Maestro.$generate_bill(AuthService.id()).then(function(res)
+    {      
+        if(res.data.response.status==1)
+        {
+
+            $scope.get_bill=res.data.response_data;
+            $pinroUiService.hideLoading();
+           // alert('shivam :'+JSON.stringify($scope.get_bill));
+        }
+        else 
+        {
+            $pinroUiService.hideLoading();
+        }
   	});
-  	$scope.openSingleSub=function(p_id, s_id, u_m_id){	
-  		$state.go('app.singlesubscription',{product_id:p_id,subscription_id:s_id,unit_mapping_id:u_m_id});
-	}
-  	$scope.change_subscription_status=function(cust_id, subscription_id, current_status){   
-      		
-          if(!e) 
-      			var e = window.event;
-      		e.cancelBubble = true;
-      		if(e.stopPropagation) 
-          	e.stopPropagation();
-    		if(current_status==='1'){
-      			var p='restart';
-    		}
-    		else if(current_status==='0'){
-      			var p='pause';
-    		}
-		$scope.data={
-         		cust_id : cust_id,
-         		subs_id : subscription_id
-      		}
-      		$pinroUiService.showLoading();
-      		Maestro.$pause_my_subscription($scope.data, p).then(function(res){
-			if(res.data.response.status==1){
-                		Maestro.$getCustomerSubscriptions(AuthService.id()).then(function(res){
-                	   		$scope.subscriptions=res.data.response_data;
-                		});
-                		$pinroUiService.hideLoading();
-            		}
-      		});
-  	}
+
+    $scope.call_cust=function(mobno)
+    {
+      window.open('tel:'+mobno); 
+
+
+    }
+
 })
+
 /**********************************************************************************************************************************
 ********************************************************* single subscription *************************************************
 **********************************************************************************************************************************/

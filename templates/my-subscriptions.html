@@ -6,67 +6,41 @@
 	</ion-nav-title>
 
 
-<!----------------------------------------------------------------------------------------------------------------->
-	<!--<div class="bar bar-subheader item-input-inset subheader-with-input" style="margin-top:10px; border:1px solid #ddd;  border-radius:5px; height:40px" id="searchbar">
-  		<label class="item-input-wrapper" style="background-color:white; z-index:13"> 
-    			<input type="search" placeholder="Type here" ng-model="search1" style="margin-top:10px">
-  		</label>
-  		<img src="img/icons/search_icon.svg">
-	</div> -->
-<!------------------------------------------------------------------------------------------------------------------->
-	<ion-content  style="background-color:#f4f4f4"  id="contentsearch"> <!--on-scroll="getScrollPosition()"-->
-<!--<button ng-click="su()">buttton</button>-->
+
+	<ion-content  style="background-color:#f4f4f4" id="contentsearch" class="padding has-header"> <!--on-scroll="getScrollPosition()"-->
 
 
-<ion-list>
-	<ion-item ng-repeat="subscription in subscriptions" class="item item-text-wrap text-left" item="item" ng-click="openSingleSub(subscription.product_id,subscription.id,subscription.unit_mapping_id);" can-swipe="true" style="padding-top:0px; margin:0px; font-family:regular">
-		<div style="height:25vw; item-dark">
-			<div style="height:100%; border:1px solid black; display:inline-block; width:30%; float:left; background-image:url(https://www.minbazaar.com/subs/admin/{{subscription.image}}); background-size:contain"></div>
-			<div style="width:70%; height:50px; display:inline-block; float:left; padding:3px;">
-				<div style="font-size:4vw; font-weight:bold">{{subscription.product_name}}</div>
-				<div style="line-height:4vw; color:gray; font-size:3.5vw" ng-if="subscription.current_status=='1'">paused</div>
-				<div style="line-height:4vw; color:gray; font-size:3.5vw" ng-if="subscription.current_status=='0'">running</div>
-			</div>
-		</div>
-       		<ion-option-button class="button-light icon ion-pause" ng-click="change_subscription_status(subscription.cust_id, subscription.id, subscription.current_status)" ng-if="subscription.current_status==1">{{'Pause'}}
-       		 </ion-option-button>
-
-       		 <ion-option-button class="button-light icon ion-pause" ng-click="change_subscription_status(subscription.cust_id, subscription.id, subscription.current_status)" ng-if="subscription.current_status=='0'">{{'Restart'}}
-       		 </ion-option-button>
-       		 
-       		<ion-option-button class="button-light icon ion-email">&nbsp;Unsubscribe </ion-option-button>
-       		<ion-option-button class="button-assertive icon ion-trash-a">&nbsp;Edit</ion-option-button>  
-        </ion-item>
-</ion-list>
-<!---------------------------------------------------------Subscriptions list ------------------------------------------------------------>
-<div style="width:95vw; margin:0 auto;">
-	<div style="width:100%; height:25vw; border-bottom:1px solid black" ng-repeat="item in CartItemList track by $index"  >
-		<div style="width:25%; float:left; display:inline-block; height:100%;  border-radius:50%; background-image:url(https://www.minbazaar.com/subs/admin/{{item.productImage}}); background-size:contain;">			
-		</div>
-		<div style="width:75%; display:inline-block; height:25vw;">
-			<div style="width:100%;	">
-				<div style="height:25%; width:90%; display:inline-block; text-align:left; padding-left:3px;  float:left; "><strong>{{item.productName}}</strong>
-				</div>
-			<i style="font-size:12px; width:10%; float:right;" class="icon ion-android-close color-dark" ng-click="removeItem(item)"></i></div>
-			<div style="height:25%; width:100%; text-align:left; float:left">
-				{{item.weight}} {{item.unit}}
-			</div>
-			<div style="height:50%; width:100%; padding:5px;  text-align:left; float:left;  font-size:18px;">
-				<div ng-click="dQuantity(item)" style="padding:2px; margin-left:10px; float:left; display:inline-block; height:100%; width:40px; border:1px solid black;">
-					<i style="width:100%" class="ion-android-remove"></i>
-				</div>
-                  		<div style="float:left; display:inline-block;height:100%; margin:0 auto; padding:2px; width:70px; border:1px solid blue;">
-					<span class="checkout-product-price ng-binding">{{item.quantity}}</span>
-				</div>
-                  		<div  ng-click="aQuantity(item)" style="float:left; padding:2px;  display:inline-block; height:100%; width:40px; border:1px solid black;">
-					<i style="margin:0 auto;" class="ion-android-add"></i>
-				</div>
-				<div style="float:right; margin-right:10px;">&#8377; {{item.price * item.quantity}}
-				</div>
-			</div>
+		<div style="width:95vw; margin:0 auto;" class="list card">
 		
+				<div class="item item-text-wrap" style="width:auto; height:auto;" ng-repeat="item in get_bill track by $index">
+			
+
+					<div style="width: auto; display:inline-block; height: auto;">
+
+							<div style="width:100%;	">
+								<div style="height:25%; width:90%; display:inline-block; text-align:left; float:left; "><strong>{{item.first_name}} {{item.last_name}}</strong>
+							</div>
+				
+	            	    	<div style="float:left; display:inline-block; margin:0 auto; padding:2px;">
+								<span class="checkout-product-price ng-binding">{{item.address}}, {{item.apartment}}, {{item.doorcode}}, {{item.zip}}
+								</span>
+							</div>
+
+							<!-- <div style="float: left; display: inline-block;">
+								<button class="button button-assertive button-round button-outline" ng-click="call_cust(item.mobno)"><i class="icon ion-ios-telephone"></i></button>
+							</div> -->
+
+							<div style="float:right; margin-right:10px;"> Total Payble amount : {{item.amount}}
+
+							</div>
+							
+					
+						</div>
+			
+					</div>
+				</div>
+				<div style="width: 90vw">
+						<button class="button button-calm button-block button-outline" ng-click="pay_money()">Mark PAID</button>
+				</div>
 		</div>
-	</div>
-</div>
-<!--------------------------------------------------------------categoriess end ---------------------------------------------------->
 

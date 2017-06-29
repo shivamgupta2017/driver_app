@@ -167,7 +167,14 @@
        <ion-item style="padding-left:5px"  class="item-icon-right"  menu-close ui-sref="app.editorial">
           <img src="img/icons/icon-lock-light.png">
            Home
-        </ion-item>  
+        </ion-item>
+
+        <ion-item style="padding-left:5px"  class="item-icon-right"  menu-close ui-sref="app.mysubscriptions">
+          <img src="img/icons/icon-lock-light.png">
+           Get Payment
+        </ion-item>
+
+
         <ion-item style="padding-left:5px" ng-if="user.isLogin" class="item-icon-right" menu-close ng-click="logout()">
           <img src="img/icons/icon-lock-light.png">
           Log out

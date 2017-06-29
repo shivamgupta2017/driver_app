@@ -13,12 +13,8 @@ angular.module('starter')
                 params: {
                     'appId': $constants.appId,
                     'appSecret': $constants.appSecret
-                
                 }
             };
-
-            
-
 return {
 
 /***********************************************************************************************************************************************/
@@ -35,13 +31,22 @@ return {
 			     method:'GET',
 	   	      	});
             },
-            $delivery_service : function (data) {
+            /*$delivery_service : function (data) {
                 return $http({ 
                  url:'https://www.minbazaar.com/subs/admin/driver_service/delivery_service/on_route',
                  method:'GET',
                     params: data
                 });
+            },*/
+            
+            $delivery_service : function (data) {
+                return $http({ 
+                 url:'https://maps.googleapis.com/maps/api/geocode/json?address=34+Ratanlok+colony,+indore,+IN&key=AIzaSyA9dQ2le_XofVAbsIAdX9rJg9m0q3ph7OM',
+                 method:'GET',
+                    params: ''
+                });
             },
+
             $get_product_package_details : function (data) { 
                 var url;
              alert('data :'+JSON.stringify(data));
@@ -86,11 +91,13 @@ return {
 
 			});
             },
-            $getCustomerSubscriptions : function (id) { //get categories products by category id       
+            $generate_bill : function (id) { 
+              
+            //get categories products by category id       
              		return $http({ 
-			     url:'https://www.minbazaar.com/subs/admin/service/get_cust_subs',
+			     url:'https://www.minbazaar.com/subs/admin/driver_service/generate_bill',
 			     method:'GET',
-			     params: {"cust_id":id}
+			     params: ''
 
 			});
             },
@@ -155,6 +162,17 @@ return {
 			});
             },
 
+            $get_my_current_location : function (data) 
+            { //get categories products by category id       
+               
+                return $http({ 
+           url:'https://ipinfo.io/geo',
+           method:'GET',
+           params: ''
+
+            });
+            
+            },
             $getSubscribePackages : function (data) { //get categories products by category id       
 			         
              		return $http({ 
