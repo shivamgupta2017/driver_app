@@ -11,7 +11,7 @@
   		</label>
   		<img src="img/icons/search_icon.svg">
 	</div> -->
-		<ion-content scroll="true" style="background-color:#f4f4f4"> <!--on-scroll="getScrollPosition()"-->
+		<ion-content scroll="true" style="background-color:#f4f4f4; margin-bottom: 100px;" > <!--on-scroll="getScrollPosition()"-->
 				
 				<div style="width:100vw;" class="list">
 				     	<li class="item" ng-repeat="product in orders" style="float:left; width:100vw; height:35vw; border-style: groove; border-color: black;">
@@ -26,7 +26,7 @@
 									
 									</div>
 									<div>
-										{{product.weight | number:0}}Litre x {{product.quantity | number:0}} = {{product.weight*product.quantity}} pouches
+										{{product.weight | number:0}} {{product.unit}} x {{product.quantity | number:0}} <!-- = {{product.weight*product.quantity}} --> 
 									</div>
 		     			</li>
 	     		</div>		

@@ -18,34 +18,47 @@ angular.module('starter')
 return {
 
 /***********************************************************************************************************************************************/
-            $getPackages : function () {	//get all packages
-	    		return $http({ 
-			     url:'https://www.minbazaar.com/subs/admin/service/get_packages',
-			     method:'GET',
+            $getPackages : function () 
+            {	//get all packages
+	    		   return $http({ 
+			       url:'https://www.minbazaar.com/subs/admin/service/get_packages',
+			       method:'GET',
 			});
                 
             },
-	       $get_today_orders : function () {
-	    		return $http({ 
-			     url:'https://www.minbazaar.com/subs/admin/driver_service/get_today_orders',
-			     method:'GET',
-	   	      	});
+	           $get_today_orders : function () 
+             {
+	    		     return $http({ 
+			         url:'https://www.minbazaar.com/subs/admin/driver_service/get_today_orders',
+			         method:'GET',
+	   	      	  });
             },
-            /*$delivery_service : function (data) {
+
+            $pay_bill : function (data) 
+             {
+               return $http({ 
+               url:'https://www.minbazaar.com/subs/admin/driver_service/pay_bill',
+               method:'GET',
+               params : data
+                });
+            },
+
+            $delivery_service : function (data) {
                 return $http({ 
                  url:'https://www.minbazaar.com/subs/admin/driver_service/delivery_service/on_route',
                  method:'GET',
                     params: data
                 });
-            },*/
-            
-            $delivery_service : function (data) {
+            },
+            /*gooooooooooogllllllllllllllleeeeeee apisssss*/
+            //shivam google
+            /*$delivery_service : function (data) {
                 return $http({ 
                  url:'https://maps.googleapis.com/maps/api/geocode/json?address=34+Ratanlok+colony,+indore,+IN&key=AIzaSyA9dQ2le_XofVAbsIAdX9rJg9m0q3ph7OM',
                  method:'GET',
                     params: ''
                 });
-            },
+            },*/
 
             $get_product_package_details : function (data) { 
                 var url;

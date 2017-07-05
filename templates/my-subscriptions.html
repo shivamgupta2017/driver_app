@@ -7,40 +7,79 @@
 
 
 
-	<ion-content  style="background-color:#f4f4f4" id="contentsearch" class="padding has-header"> <!--on-scroll="getScrollPosition()"-->
+	<ion-content id="contentsearch" class="padding has-header"> <!--on-scroll="getScrollPosition()"-->
 
 
-		<div style="width:95vw; margin:0 auto;" class="list card">
+		<div class="list card" ng-if="get_bill.length>0">
 		
-				<div class="item item-text-wrap" style="width:auto; height:auto;" ng-repeat="item in get_bill track by $index">
+				<div class="item item-text-wrap" style="width:90vw; height:auto; border-style: solid; border-color: black; border-width: 1px; border-radius: 10px; margin: 1px;" ng-repeat="item in get_bill track by $index" ng-click="pay_money(item.cust_id, item.total_payable ,$index, item.total_amount[0].subscription_id); ">
 			
 
 					<div style="width: auto; display:inline-block; height: auto;">
 
 							<div style="width:100%;	">
 								<div style="height:25%; width:90%; display:inline-block; text-align:left; float:left; "><strong>{{item.first_name}} {{item.last_name}}</strong>
-							</div>
+								</div>
 				
 	            	    	<div style="float:left; display:inline-block; margin:0 auto; padding:2px;">
-								<span class="checkout-product-price ng-binding">{{item.address}}, {{item.apartment}}, {{item.doorcode}}, {{item.zip}}
+								<span class="checkout-product-price ng-binding">{{item.address[0].address}}<!-- , {{item.apartment}}, {{item.doorcode}}, {{item.zip}} -->
 								</span>
 							</div>
 
-							<!-- <div style="float: left; display: inline-block;">
-								<button class="button button-assertive button-round button-outline" ng-click="call_cust(item.mobno)"><i class="icon ion-ios-telephone"></i></button>
-							</div> -->
+							<div style="width: 80vw; text-align: left; display: inline-block;">
+									total amount : 
 
-							<div style="float:right; margin-right:10px;"> Total Payble amount : {{item.amount}}
+								<div style="float: right;">
+										{{item.total_payable}}
+								
+								</div>
+								<br>
+								<div style="display: inline-block; float: right;">
+									{{'-'}}&nbsp
+									
+									<label class="item item-input" style="border-style: solid; border-color: black; border-width: 1px; width: 30vw;display: inline-block; float: right;">
+	    								<input type="text" placeholder="amount" ng-model="data[$index].paid_amount">
+	  								</label>
 
-							</div>
+								</div>
+								<br>
+								<br>
+								
+								<div style="float: right;" ng-show="item.total_payable-data[$index].paid_amount>=0">
+									due :{{item.total_payable-data[$index].paid_amount}}
+
+								</div>
+								
+
+								<div style="float: right;" ng-show="item.total_payable-data[$index].paid_amount<0">
+									advance paid :{{item.total_payable-data[$index].paid_amount}}
+
+								</div>
+
+
+								<div style="float: left; display: inline-block;">
+									<button class="button button-positive">mark paid</button>
+								</div>
+
+							
 							
 					
-						</div>
+							</div>
 			
+							</div>
 					</div>
+				
 				</div>
-				<div style="width: 90vw">
-						<button class="button button-calm button-block button-outline" ng-click="pay_money()">Mark PAID</button>
-				</div>
+
 		</div>
 
+		<div ng-if="get_bill.length<1" id = "show_nothing">
+			<h3>No Bills Found</h3>
+		</div>
+		
+			
+
+		
+
+	</ion-content>
+</ion-view>

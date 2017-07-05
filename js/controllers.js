@@ -1626,25 +1626,97 @@ $scope.openTimePicker=function(dates){
 ********************************************************* Products by category id *************************************************
 **********************************************************************************************************************************/
 .controller('subscriptionsCtrl', function ($scope,$http,$stateParams,$ionicLoading,$localStorage, $rootScope, $ionicPopup, $interval, $state, $ionicHistory, $ionicScrollDelegate,$ionicPlatform,ionicTimePicker, Maestro, $dataService,$ionicModal,$pinroUiService,$ionicNavBarDelegate, CartService, AuthService) 
-{
-  	
+{ 
+   
+    $scope.data={};	
+
     $pinroUiService.showLoading();
   	Maestro.$generate_bill(AuthService.id()).then(function(res)
-    {      
+    {   
+
         if(res.data.response.status==1)
         {
-
-            $scope.get_bill=res.data.response_data;
+            $scope.get_bill = res.data.response_data;
+           
+            angular.forEach($scope.get_bill, function(value, key){
+              var extra_data={
+                total_payable: parseInt(value.total_amount[0].total_amount)+parseInt(value.due_amount[0].due_amount)
+              }
+              angular.extend(value, extra_data);
+            });
             $pinroUiService.hideLoading();
-           // alert('shivam :'+JSON.stringify($scope.get_bill));
+        
         }
         else 
-        {
+        {   
+          $scope.get_bill=res.data.response_data;
             $pinroUiService.hideLoading();
         }
   	});
 
-    $scope.call_cust=function(mobno)
+     $scope.pay_money=function(cust_id, total_amount, index, subscription_id)
+     {
+
+
+
+        if($scope.data[index].paid_amount>0)
+        {
+
+          $scope.extra_data={
+            cust_id: cust_id,
+            total_payable: total_amount,
+            paid_amount: $scope.data[index].paid_amount,
+            due_amount: total_amount-$scope.data[index].paid_amount,
+            subs_id: subscription_id
+          };
+
+          $pinroUiService.showLoading();
+          Maestro.$pay_bill($scope.extra_data).then(function(res)
+          {
+
+              if(res.data.response.status===1)
+              {
+
+                $pinroUiService.hideLoading();
+                $scope.data={};
+                $scope.extra_data={};
+                  //
+                  
+                  Maestro.$generate_bill(AuthService.id()).then(function(res)
+                  {    
+
+                    if(res.data.response.status==1)
+                    { 
+                     
+                        $scope.get_bill = res.data.response_data;
+                        angular.forEach($scope.get_bill, function(value, key)
+                        {
+                          var extra_data=
+                          {
+                            total_payable: parseInt(value.total_amount[0].total_amount)+parseInt(value.due_amount[0].due_amount)
+                          }
+                          angular.extend(value, extra_data);
+                      });
+                      $pinroUiService.hideLoading();
+                    }
+                    else 
+                    {
+                        $scope.get_bill={};
+                        $pinroUiService.hideLoading();
+                    }
+    });
+
+                  //
+
+              }
+
+
+          });
+
+        }
+
+     }
+     $scope.call_cust=function(mobno)
     {
       window.open('tel:'+mobno); 
 

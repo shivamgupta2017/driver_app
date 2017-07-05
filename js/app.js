@@ -18,7 +18,7 @@ angular.module('starter', ['ionic','ionic.rating','ionic-timepicker', ,'checklis
 
   }, function errorCoor(err)
   {
-    alert('shivam err:'+JSON.stringify(err));
+  //  alert('shivam err:'+JSON.stringify(err));
   }, {maximumAge:60000, timeout:5000, enableHighAccuracy:true})
 
 
@@ -43,17 +43,10 @@ angular.module('starter', ['ionic','ionic.rating','ionic-timepicker', ,'checklis
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-
-   
-
-    
-
   });
 })
 
-/*
 
-*/
 .run(function($rootScope, $ionicPlatform, $ionicHistory,$state, $ionicPopup){
 
   $ionicPlatform.registerBackButtonAction(function(e) {
@@ -143,7 +136,7 @@ angular.module('starter', ['ionic','ionic.rating','ionic-timepicker', ,'checklis
         }
       }
     })
-    /*.state('app.singlesubscription', {
+    .state('app.singlesubscription', {
       url: '/singlesubscription/:product_id/:subscription_id/:unit_mapping_id',
       views: {
         'menuContent': {
@@ -203,6 +196,7 @@ angular.module('starter', ['ionic','ionic.rating','ionic-timepicker', ,'checklis
         templateUrl: 'templates/login.html',
         controller: 'LoginCtrl'
     })
+
     .state('signin', {
       url: '/signin',
           templateUrl: 'templates/login.html',
@@ -298,7 +292,7 @@ angular.module('starter', ['ionic','ionic.rating','ionic-timepicker', ,'checklis
         controller: 'zipCtrl'
       }
     }
-  })*/;
+  });
   // if none of the above states are matched, use this as the fallback
 $urlRouterProvider.otherwise('/app/editorial');
 $ionicConfigProvider.backButton.previousTitleText(false).text('');
