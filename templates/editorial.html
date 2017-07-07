@@ -17,7 +17,7 @@
 
 	<!--on-scroll="getScrollPosition()"-->
 
-        <ion-refresher on-refresh="doRefresh()">
+        <ion-refresher on-refresh="doRefresh(); $event.stopPropagation();">
 	        </ion-refresher>
 	<div style="10px" ng-if="data.subscription.length==0 && data.orders.length==0 && data.package.length==0"><h3>No Orders Found</h3></div>
 
@@ -68,35 +68,38 @@
 		<div style="height:100%; width:100%vw;" class="">
 	     	
 	     	<div ng-repeat="orders in data.package" style="border: 1px solid black; border-radius: 8px; margin-top: 3%" ng-click="open_single_subscription(orders.subscription_id, orders.package_id, orders.product_id)">
-					 		
-					 		<div class="checkbox" style="float: left; vertical-align:middle; display: inline-block;"> 
-						 			
-						 			<input ng-show="orders.package_id!=0" type="checkbox" style="vertical-align:middle;" checklist-model="selected.package"  checklist-value="orders.subscription_id" ng-click="click_item_checkbox(); $event.stopPropagation(); ">
+						 		
+					 			<div class="row" style="height:30px">
+									<div class="col col-25">
+										<div class="checkbox" style="padding:0px"> 
+					 						<input type="checkbox" checklist-model="selected.package"  checklist-value="orders.subscription_id" ng-click="click_item_checkbox(); $event.stopPropagation();">
+										
+										</div>
+									</div>
+								<div class="col col-50 text-left">
+							   		{{orders.first_name | uppercase}} {{orders.last_name | uppercase}}
+							   	</div>
+							   	
+							   	<div class="col col-25 text-right">
+									   		{{orders.slot_time}}
+							    </div>
 
-						 			<input ng-show="orders.product_id!=0" type="checkbox" style="vertical-align:middle;" checklist-model="selected.subscription"  checklist-value="orders.subscription_id" ng-click="click_item_checkbox(); $event.stopPropagation(); ">
 
-
-
-							</div>
-
-								<div style="font-size: 13px; line-height: 15px; display: inline-block;">
-									{{order.first_name | uppercase}} {{order.last_name | uppercase}}
 								</div>
 
-								<div style="display: inline-block; font-size:13px; line-height: 15px;">
-									{{order.delivery_time}}
+								<div class="row">
+									<div class="col col-25">
+									</div>
+									<div class="col col-75 text-left">
+										{{orders.address | uppercase}}
+									</div>
 								</div>
-								
-								<div style="text-align: center; width: 110%; font-size: 13px; line-height: 15px;">
-									{{order.address | uppercase}}
-								</div>
-
-						
+							
 						 	<div style="width:100%; text-align:left; padding:1px; display: inline-block;">
-								<button style="margin: 1px" class="button  button-balanced button-clear button-outline button-icon ion-ios-telephone icon-left" ng-click="call_customer(orders.mobno); $event.stopPropagation();">Call Customer
+								<button style="margin: 1px" class="button  button-positive button-clear button-outline button-icon ion-ios-telephone icon-left" ng-click="call_customer(orders.mobno); $event.stopPropagation();">Call Customer
 								</button>
 								
-								<button class="button button-assertive" style="float:right; margin: 2px;" ng-click="open_single_subscription(orders.subscription_id, orders.package_id, orders.product_id); $event.stopPropagation();">Get Details
+								<button class="button button-positive" style="float:right; margin: 2px;" ng-click="open_single_subscription(orders.subscription_id, orders.package_id, orders.product_id); $event.stopPropagation();">Get Details
 								</button>
 							</div>
 	    	</div>

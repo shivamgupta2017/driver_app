@@ -62,16 +62,24 @@ return {
 
             $get_product_package_details : function (data) { 
                 var url;
-             alert('data :'+JSON.stringify(data));
+                
+                //alert('data :'+JSON.stringify(data));
                
                 if(data.type==='product')
                 {   
                     url='subscription/product';
                 }
+                else if(data.type=='package')
+                {
+                    url='subscription/package/'+data.package_id;
+                }
                 else 
                 {
                     url='orders';
                 }
+                //alert('data.type :'+data.type);
+                //alert('shivam url:'+url);
+                //alert('order_id :'+data.order_id);
             	 return $http({
 			     url:'https://www.minbazaar.com/subs/admin/driver_service/get_today_orders_details/'+url+'/'+data.order_id,
 			     method:'GET',

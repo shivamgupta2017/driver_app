@@ -892,7 +892,7 @@ $scope.allImages = [];
             if (res.data.response.status===1) 
             {     
                   $scope.data=res.data.response_data;
-                //  alert('shivam :'+JSON.stringify($scope.data));
+                  console.log('shivam :'+JSON.stringify($scope.data));
                   $pinroUiService.hideLoading();
                   if(($scope.data.orders.length==0)&&($scope.data.package.length==0)&&($scope.data.subscription.length==0))
                   {
@@ -909,6 +909,7 @@ $scope.allImages = [];
            });
  	$scope.doRefresh=function()
  	{
+    alert('shivam');
  		 $state.go($state.current, {}, {reload: true});
  	}
   $scope.get_checked=function()
@@ -918,7 +919,7 @@ $scope.allImages = [];
            $pinroUiService.showLoading();
             Maestro.$delivery_service($scope.selected).then(function(res){
             
-              alert('shivam :'+JSON.stringify(res));
+              //alert('shivam :'+JSON.stringify(res));
               
             if (res.data.response.status===1) 
             {
@@ -937,15 +938,20 @@ $scope.allImages = [];
   }
   $scope.open_single_subscription=function(subscription_id, package_id, product_id, unit_mapping_id)
   {
+
+
+    //alert('package_id :'+package_id);
+    //alert('product :'+product_id);
+      
       if(package_id==0)
       {
         var type='product';
       }
       else if(product_id==0)
       {
-      	//alert('subscription_id :'+subscription_id)
         var type='package';
       }
+
 
       $state.go('app.view_order', {order_id: subscription_id, type: type, package_id: package_id});
   }
@@ -985,10 +991,13 @@ $scope.allImages = [];
     package_id: $stateParams.package_id
   	
   };
-  $scope.subscription_id=$scope.extra_data.order_id;
 
+ // alert('shivam :'+JSON.stringify($scope.extra_data));
+  $scope.subscription_id=$scope.extra_data.order_id;
+  //alert('fds'+JSON.stringify($scope.extra_data));
   Maestro.$get_product_package_details($scope.extra_data).then(function(res)
   {
+  //  alert('res :'+JSON.stringify(res));
     if(res.data.response.status===1)
     {
         $scope.orders=res.data.response_data;
