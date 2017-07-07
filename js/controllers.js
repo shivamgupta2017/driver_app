@@ -878,8 +878,9 @@ $scope.allImages = [];
   .controller('MainCtrl', function ($scope,$http,$ionicLoading,$localStorage, $rootScope, $ionicPopup, $interval, $state, $ionicHistory, $ionicScrollDelegate,$ionicPlatform, Maestro, $dataService,$ionicModal,$pinroUiService,$ionicNavBarDelegate, AuthService) {
 	$scope.Categories=[];
 	$scope.item={};
-  $scope.selected={};
-  
+  $scope.selected={}; 
+//  $scope.date = new Date();
+
  	$scope.$on('$stateChangeSuccess', function() {
       		$scope.user.id= AuthService.id();
         	$scope.user.email= AuthService.email();
@@ -891,6 +892,7 @@ $scope.allImages = [];
             if (res.data.response.status===1) 
             {     
                   $scope.data=res.data.response_data;
+                //  alert('shivam :'+JSON.stringify($scope.data));
                   $pinroUiService.hideLoading();
                   if(($scope.data.orders.length==0)&&($scope.data.package.length==0)&&($scope.data.subscription.length==0))
                   {
@@ -992,6 +994,7 @@ $scope.allImages = [];
         $scope.orders=res.data.response_data;
         $pinroUiService.hideLoading();
         //alert(' getting resposen :'+JSON.stringify($scope.orders));
+
     }
 
 	});
@@ -1670,6 +1673,7 @@ $scope.openTimePicker=function(dates){
             subs_id: subscription_id
           };
 
+
           $pinroUiService.showLoading();
           Maestro.$pay_bill($scope.extra_data).then(function(res)
           {
@@ -1680,8 +1684,6 @@ $scope.openTimePicker=function(dates){
                 $pinroUiService.hideLoading();
                 $scope.data={};
                 $scope.extra_data={};
-                  //
-                  
                   Maestro.$generate_bill(AuthService.id()).then(function(res)
                   {    
 
@@ -1701,6 +1703,7 @@ $scope.openTimePicker=function(dates){
                     }
                     else 
                     {
+                      
                         $scope.get_bill={};
                         $pinroUiService.hideLoading();
                     }
