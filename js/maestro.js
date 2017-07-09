@@ -43,6 +43,25 @@ return {
                 });
             },
 
+            $get_verification : function (data) 
+             {
+               return $http({ 
+               url:'https://www.minbazaar.com/subs/admin/driver_service/verification',
+               method:'GET',
+               params : ''
+                });
+            },
+            
+            $update_cust_verification : function (data) 
+             {
+               return $http({ 
+               url:'https://www.minbazaar.com/subs/admin/driver_service/update_verification',
+               method:'GET',
+               params : data
+                });
+            },
+
+
             $delivery_service : function (data) {
                 return $http({ 
                  url:'https://www.minbazaar.com/subs/admin/driver_service/delivery_service/on_route',

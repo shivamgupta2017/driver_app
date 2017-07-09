@@ -219,6 +219,16 @@ $scope.reloadView = function(){
   }
 
 
+  /*testing*/
+  $scope.lassan=function()
+  {
+  	
+  	$state.go('app.get_verification');
+  }
+  /*testing*/
+
+
+
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -1740,21 +1750,52 @@ $scope.openTimePicker=function(dates){
 /**********************************************************************************************************************************
 ********************************************************* single subscription *************************************************
 **********************************************************************************************************************************/
-  .controller('singleSubscriptionCtrl', function ($scope,$http,$stateParams,$ionicLoading,$localStorage, $rootScope, $ionicPopup, $interval, $state, $ionicHistory, $ionicScrollDelegate,$ionicPlatform,ionicTimePicker, Maestro, $dataService,$ionicModal,$pinroUiService,$ionicNavBarDelegate, CartService, AuthService) {
+  .controller('verificationCtrl', function ($scope,$http,$stateParams,$ionicLoading,$localStorage, $rootScope, $ionicPopup, $interval, $state, $ionicHistory, $ionicScrollDelegate,$ionicPlatform,ionicTimePicker, Maestro, $dataService,$ionicModal,$pinroUiService,$ionicNavBarDelegate, CartService, AuthService) {
 	 var data1={};
-	data1.cust_id=AuthService.id();;
-	data1.product_id=$stateParams.product_id;
-	data1.sub_id=$stateParams.subscription_id;
-	data1.unit_mapping_id=$stateParams.unit_mapping_id;		
-	$pinroUiService.showLoading();
-	
-	Maestro.$getSingleSub(data1).then(function(res){
-		$scope.singleSubscriptions=res.data.response_data;
-		$pinroUiService.hideLoading();
-	});
-	
+	data1.cust_id=AuthService.id();
 
-	$scope.addExtra=function(id){
+	/*data1.product_id=$stateParams.product_id;
+	data1.sub_id=$stateParams.subscription_id;
+	data1.unit_mapping_id=$stateParams.unit_mapping_id;*/		
+
+	$pinroUiService.showLoading();
+  	Maestro.$get_verification().then(function(res)
+  	{
+  		if(res.data.response.status==1)
+  		{
+  			$scope.get_user_verification = res.data.response_data;
+	  		$pinroUiService.hideLoading();
+  		}
+  	});
+
+  	$scope.update_verification=function(cust_id)
+  	{
+
+
+  		data1.cust_id=cust_id;
+  		$pinroUiService.showLoading();
+  		Maestro.$update_cust_verification(data1).then(function(res){
+
+  			if(res.data.response.status==1)
+  			{
+			  	Maestro.$get_verification().then(function(res)
+			  	{
+			  		if(res.data.response.status==1)
+			  		{
+			  			$scope.get_user_verification = res.data.response_data;
+				  		$pinroUiService.hideLoading();
+			  		}
+			  	});
+
+
+  			}
+
+  		});
+
+  	}
+
+	/*$scope.addExtra=function(id)
+	{
       		$scope.data={
     		};
 	
@@ -1818,17 +1859,10 @@ $scope.openTimePicker=function(dates){
    					});
 			$pinroUiService.hideLoading();
 		}
-          
         });
-
     });
-
-	}
-	
+	//}*/
 })
-
-
-
 /********************************************************************************************************************************************
 *******************************************************Cart list controller *****************************************************************
 *********************************************************************************************************************************************/

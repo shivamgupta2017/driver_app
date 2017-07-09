@@ -108,7 +108,7 @@ angular.module('starter', ['ionic','ionic.rating','ionic-timepicker', ,'checklis
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
-
+//d
     .state('app.editorial', {
       url: '/editorial',
       views: {
@@ -118,6 +118,7 @@ angular.module('starter', ['ionic','ionic.rating','ionic-timepicker', ,'checklis
         }
       }
     })
+    //d
     .state('app.view_order', {
       url: '/view_order/:order_id/:type/:package_id',
       views: {
@@ -127,6 +128,7 @@ angular.module('starter', ['ionic','ionic.rating','ionic-timepicker', ,'checklis
         }
       }
     })
+    //d
     .state('app.mysubscriptions', {
       url: '/subscriptions',
       views: {
@@ -136,12 +138,12 @@ angular.module('starter', ['ionic','ionic.rating','ionic-timepicker', ,'checklis
         }
       }
     })
-    .state('app.singlesubscription', {
-      url: '/singlesubscription/:product_id/:subscription_id/:unit_mapping_id',
+    .state('app.get_verification', {
+      url: '/get_verification',
       views: {
         'menuContent': {
           templateUrl: 'templates/single-subscription.html',
-          controller: 'singleSubscriptionCtrl'
+          controller: 'verificationCtrl'
         }
       }
     })
