@@ -24,7 +24,34 @@ angular.module('starter', ['ionic','ionic.rating','ionic-timepicker', ,'checklis
 
   document.addEventListener("offline", onOffline, false);
 	document.addEventListener("online", onOnline, false);
-	function onOffline() {
+  /*document.addEventListener("deviceready", onDeviceReady, false);
+
+  function onDeviceReady()
+  {
+    
+
+    navigator.camera.getPicture( on_Success, on_Error, {quality: 50, destinationType: Camera.DestinationType.DATA_URL});
+  }
+  function on_Success(imageData)
+  {
+  
+  alert('aaya');
+
+///  alert('shivam :'+base64);
+
+   var image_src = "data:image/jpeg;base64," + imageData;
+
+    alert('hello :'+image_src);
+
+  }	
+  function on_Error(error_data)
+  {
+  
+    alert('error aagyi bhai '+JSON.stringify(error_data));
+  
+  }*/
+
+  function onOffline() {
 		alert('offline');
 		$state.go('app.network_connection');
 	}

@@ -195,6 +195,59 @@ $scope.showPopup = function() {
  	};
 
 
+/**************************mycode*****************************/
+
+function win(r) {
+	alert(JSON.stringify(r));
+	alert('win ho gaya');
+    console.log("Code = " + r.responseCode);
+    console.log("Response = " + r.response);
+    console.log("Sent = " + r.bytesSent);
+}
+
+function fail(error) {
+	alert('fail ho gaya');
+    alert("An error has occurred: Code = " + error.code);
+    console.log("upload error source " + error.source);
+    console.log("upload error target " + error.target);
+}
+
+function uploadPhoto(imageURI) {
+	alert("upload");
+    var options = new FileUploadOptions();
+    options.fileKey="file";
+    options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+    options.mimeType="text/plain";
+
+    var params = new Object();
+
+    options.params = params;
+
+    var ft = new FileTransfer();
+    ft.upload(imageURI, encodeURI("https://www.minbazaar.com/subs/admin/driver_service/verify_doc"), win, fail, options);
+}
+
+ $scope.uploadFromGallery=function() {
+
+    // Retrieve image file location from specified source
+    navigator.camera.getPicture(uploadPhoto,
+                                function(message) { alert('get picture failed'); },
+                                { quality: 50, 
+                                destinationType: navigator.camera.DestinationType.FILE_URI
+                                 }
+                                );
+
+}
+
+
+
+
+
+/********************************mycodeend*************************/
+
+
+
+
   //go to product pages based on categories
   $scope.goToProductCategories = function(catagoryName, menuOrder, id){
   	$state.go('app.product-list', {categoryId: id, catagoryName: catagoryName});
@@ -219,12 +272,57 @@ $scope.reloadView = function(){
   }
 
 
-  /*testing*/
+  $scope.lavda=function()
+  {
+  
+     navigator.camera.getPicture( on_Success, on_Error, {quality: 50, destinationType:  Camera.DestinationType.File_URI, mediaType: Camera.MediaType.PICTURE,});
+  
+  }
+
+	 function on_Success(imageData)
+  	{
+		
+
+
+  			alert('imageData :'+imageData);
+  			$pinroUiService.showLoading();
+
+		
+
+			var options = new FileUploadOptions();
+			options.chunkedMode = false;
+			options.fileKey = "file";
+			options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+			options.mimeType = "plain/text"; 
+						
+			var ft = new FileTransfer();
+			ft.upload(imageData, /*encodeURI*/("https://www.minbazaar.com/subs/admin/driver_service/verify_doc"), win, fail, options);	
+
+	}
+	function win(r)
+	{
+		$pinroUiService.hideLoading();
+		alert('win :'+r);
+
+
+	}
+	function fail(error)
+	{
+
+		alert('fail :'+JSON.stringify(error));
+	}
+  	function on_Error(error_data)
+  	{
+  
+    alert('error aagyi bhai '+JSON.stringify(error_data));
+  
+ 	}  
   $scope.lassan=function()
   {
   	
   	$state.go('app.get_verification');
   }
+
   /*testing*/
 
 
@@ -908,7 +1006,7 @@ $scope.allImages = [];
                   {
                   	//alert('length is lesser than 1');
                   	// window.plugins.toast.show("No items yet to deliver..! Golu bhyya aaram karo ab", 'long', 'bottom');
-                  	//shivam
+                  	//
                   }
          			//alert('hello curr response o:'+JSON.stringify($scope.data));     
             }
@@ -1759,14 +1857,66 @@ $scope.openTimePicker=function(dates){
 	data1.unit_mapping_id=$stateParams.unit_mapping_id;*/		
 
 	$pinroUiService.showLoading();
+
   	Maestro.$get_verification().then(function(res)
-  	{
+  	{	
+
   		if(res.data.response.status==1)
   		{
   			$scope.get_user_verification = res.data.response_data;
 	  		$pinroUiService.hideLoading();
+	  		
+  		}
+  		else if(res.data.response.status==0)
+  		{
+  			$scope.get_user_verification = res.data.response_data;
+
+
   		}
   	});
+
+
+  	$scope.scan_document=function()
+  	{
+  		/*alert('shivam');*/
+	     navigator.camera.getPicture(on_Success, function(message)
+	     	{
+	     		alert('error'+message);
+	     	}, 
+	     	{
+	     		quality: 50, destinationType:  Camera.DestinationType.File_URI
+	     	});
+  	}
+
+  	function on_Success(imageData)
+  	{
+
+  		alert('success 1');
+		alert("upload");
+    	var options = new FileUploadOptions();
+    	options.fileKey="file";
+    	options.fileName=imageData.substr(imageData.lastIndexOf('/')+1);
+    	options.mimeType="text/plain";
+	    var params = new Object();
+	    options.params = params;
+	    var ft = new FileTransfer();
+
+	    
+	    ft.upload(imageData, encodeURI("https://www.minbazaar.com/subs/admin/driver_service/verify_doc"), win, fail, options);
+
+
+
+  	}
+  	function win(res)
+  	{
+  		alert('done res :'+res);
+
+  	}
+  	function fail(err)
+  	{
+  		alert('fail :'+err);
+
+  	}
 
   	$scope.update_verification=function(cust_id)
   	{
@@ -1774,7 +1924,8 @@ $scope.openTimePicker=function(dates){
 
   		data1.cust_id=cust_id;
   		$pinroUiService.showLoading();
-  		Maestro.$update_cust_verification(data1).then(function(res){
+  		Maestro.$update_cust_verification(data1).then(function(res)
+  		{
 
   			if(res.data.response.status==1)
   			{
@@ -1782,8 +1933,10 @@ $scope.openTimePicker=function(dates){
 			  	{
 			  		if(res.data.response.status==1)
 			  		{
+
 			  			$scope.get_user_verification = res.data.response_data;
 				  		$pinroUiService.hideLoading();
+			  			
 			  		}
 			  	});
 

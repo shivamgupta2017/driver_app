@@ -51,7 +51,16 @@ return {
                params : ''
                 });
             },
-            
+
+             $scan_doc : function (data) 
+             {
+               return $http({ 
+               url:'https://www.minbazaar.com/subs/admin/driver_service/verify_doc',
+               method:'GET',
+               params : data
+                });
+            },
+
             $update_cust_verification : function (data) 
              {
                return $http({ 

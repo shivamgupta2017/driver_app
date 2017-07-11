@@ -9,15 +9,30 @@
 	
 	<ion-content overflow-scroll="true" class="has-header">
 
+		<h3 ng-if="get_user_verification.length==0">Empty</h3>
+
 		<ion-list class="list">
- 		   <ion-item class="item" ng-repeat="data in get_user_verification" ng-click="update_verification(data.cust_id)">
-      		
-      		{{data.first_name}} {{data.last_name}}
+		<!--ng-click="$event.stopPropagation(); update_verification(data.cust_id)"-->
+ 		   <ion-item class="item" ng-repeat="data in get_user_verification">
+      			
+      		<div style="display: inline-block;">
 
+      			<div style="font-weight: bold; display: inline-block;">
+      				<h3>	
+	      			{{data.first_name}} {{data.last_name}}
+	      			</h3>
+	      		</div>
 
-      		{{data.address[0].address}}
+	      		<div>
+	      			{{data.address[0].address}}
+	      		</div>
+	      	
+	      	</div>
 
+	      			<button style="display: inline-block; float: right;" class="button button-positive" ng-click="scan_document();">scan</button>
 
+	      			<!-- <button ng-show="imageData!=''" style="display: inline-block; float: right;" class="button button-positive" ng-click="upload_image(data.cust_id); $event.stopPropagation();">upload</button> -->
+	      	
     		</ion-item>
 		</ion-list>
 
