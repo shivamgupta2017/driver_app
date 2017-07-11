@@ -227,14 +227,16 @@ function uploadPhoto(imageURI) {
     ft.upload(imageURI, encodeURI("https://www.minbazaar.com/subs/admin/driver_service/verify_doc"), win, fail, options);
 }
 
- $scope.uploadFromGallery=function() {
+ $scope.uploadFromGallery=function() 
+ {
 
     // Retrieve image file location from specified source
     navigator.camera.getPicture(uploadPhoto,
                                 function(message) { alert('get picture failed'); },
-                                { quality: 50, 
-                                destinationType: navigator.camera.DestinationType.FILE_URI
-                                 }
+                                { 
+                                	quality: 50, 
+                                	destinationType: navigator.camera.DestinationType.FILE_URI
+                                }
                                 );
 
 }
@@ -270,35 +272,6 @@ $scope.reloadView = function(){
      // $ionicSideMenuDelegate.toggleLeft();
       $state.go("signin", {}, {reload: true});
   }
-
-
-  $scope.lavda=function()
-  {
-  
-     navigator.camera.getPicture( on_Success, on_Error, {quality: 50, destinationType:  Camera.DestinationType.File_URI, mediaType: Camera.MediaType.PICTURE,});
-  
-  }
-
-	 function on_Success(imageData)
-  	{
-		
-
-
-  			alert('imageData :'+imageData);
-  			$pinroUiService.showLoading();
-
-		
-
-			var options = new FileUploadOptions();
-			options.chunkedMode = false;
-			options.fileKey = "file";
-			options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
-			options.mimeType = "plain/text"; 
-						
-			var ft = new FileTransfer();
-			ft.upload(imageData, /*encodeURI*/("https://www.minbazaar.com/subs/admin/driver_service/verify_doc"), win, fail, options);	
-
-	}
 	function win(r)
 	{
 		$pinroUiService.hideLoading();
@@ -983,7 +956,7 @@ $scope.allImages = [];
 /*----------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------MAIN CONTROLLER START (HOME CONTROLLER)---------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------*/
-  .controller('MainCtrl', function ($scope,$http,$ionicLoading,$localStorage, $rootScope, $ionicPopup, $interval, $state, $ionicHistory, $ionicScrollDelegate,$ionicPlatform, Maestro, $dataService,$ionicModal,$pinroUiService,$ionicNavBarDelegate, AuthService) {
+  .controller('MainCtrl', function ($timeout ,$scope,$http,$ionicLoading,$localStorage, $rootScope, $ionicPopup, $interval, $state, $ionicHistory, $ionicScrollDelegate,$ionicPlatform, Maestro, $dataService,$ionicModal,$pinroUiService,$ionicNavBarDelegate, AuthService) {
 	$scope.Categories=[];
 	$scope.item={};
   $scope.selected={}; 
@@ -995,7 +968,7 @@ $scope.allImages = [];
         	$scope.user.name=AuthService.name();
         	$scope.user.isLogin= AuthService.isAuthenticated();   
            
-           $pinroUiService.showLoading();
+            $pinroUiService.showLoading();
             Maestro.$get_today_orders().then(function(res){
             if (res.data.response.status===1) 
             {     
@@ -1017,8 +990,13 @@ $scope.allImages = [];
            });
  	$scope.doRefresh=function()
  	{
-    alert('shivam');
- 		 $state.go($state.current, {}, {reload: true});
+		
+		$timeout( function() 
+		{	
+			$state.reload();
+      		$scope.$broadcast('scroll.refreshComplete');
+   		}, 1000);
+// 		$state.go($state.current, {}, {reload: true});
  	}
   $scope.get_checked=function()
   {
@@ -1849,15 +1827,14 @@ $scope.openTimePicker=function(dates){
 ********************************************************* single subscription *************************************************
 **********************************************************************************************************************************/
   .controller('verificationCtrl', function ($scope,$http,$stateParams,$ionicLoading,$localStorage, $rootScope, $ionicPopup, $interval, $state, $ionicHistory, $ionicScrollDelegate,$ionicPlatform,ionicTimePicker, Maestro, $dataService,$ionicModal,$pinroUiService,$ionicNavBarDelegate, CartService, AuthService) {
-	 var data1={};
+	var data1={};
 	data1.cust_id=AuthService.id();
+	$scope.drop_down={};
 
-	/*data1.product_id=$stateParams.product_id;
-	data1.sub_id=$stateParams.subscription_id;
-	data1.unit_mapping_id=$stateParams.unit_mapping_id;*/		
-
+	$scope.doc_types=[{opt: 'Aadhar card'}, {opt: 'DL'}, {opt: 'Vote'}, {opt: 'other'}];
+	
 	$pinroUiService.showLoading();
-
+  	
   	Maestro.$get_verification().then(function(res)
   	{	
 
@@ -1870,16 +1847,38 @@ $scope.openTimePicker=function(dates){
   		else if(res.data.response.status==0)
   		{
   			$scope.get_user_verification = res.data.response_data;
-
-
   		}
   	});
 
 
-  	$scope.scan_document=function()
+  	$scope.scan_document=function(cust_id)
   	{
   		/*alert('shivam');*/
-	     navigator.camera.getPicture(on_Success, function(message)
+  		
+
+	     navigator.camera.getPicture(function(imageData)
+	     	{
+		  		var options = new FileUploadOptions();
+		    	options.fileKey="file";
+		    	options.fileName = cust_id+'.jpeg';//imageData.substr(imageData.lastIndexOf('/')+1);
+		    	options.mimeType="text/plain";
+			    var params = {
+			    	document_type: $scope.drop_down.values.opt
+			    };
+
+			    //new Object();
+			    options.params = params;
+			    var ft = new FileTransfer();
+			    $pinroUiService.showLoading();
+	    		ft.upload(imageData, encodeURI("https://www.minbazaar.com/subs/admin/driver_service/verify_doc"), function(res)
+	    			{
+	    				alert('success :'+JSON.stringify(res));
+	    			}, function(err)
+	    			{
+	    				alert('error :'+JSON.stringify(err));
+	    			}, options);
+				$pinroUiService.hideLoading();
+	     	}, function(message)
 	     	{
 	     		alert('error'+message);
 	     	}, 
@@ -1888,25 +1887,7 @@ $scope.openTimePicker=function(dates){
 	     	});
   	}
 
-  	function on_Success(imageData)
-  	{
 
-  		alert('success 1');
-		alert("upload");
-    	var options = new FileUploadOptions();
-    	options.fileKey="file";
-    	options.fileName=imageData.substr(imageData.lastIndexOf('/')+1);
-    	options.mimeType="text/plain";
-	    var params = new Object();
-	    options.params = params;
-	    var ft = new FileTransfer();
-
-	    
-	    ft.upload(imageData, encodeURI("https://www.minbazaar.com/subs/admin/driver_service/verify_doc"), win, fail, options);
-
-
-
-  	}
   	function win(res)
   	{
   		alert('done res :'+res);

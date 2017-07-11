@@ -13,19 +13,23 @@
 
 
 
-	<ion-content overflow-scroll="true" class="has-header"  id="contentsearch"> 
+	<ion-content overflow-scroll="true" padding="true" class="has-header"  id="contentsearch"> 
 
 	<!--on-scroll="getScrollPosition()"-->
 
-        <ion-refresher on-refresh="doRefresh(); $event.stopPropagation();">
-	        </ion-refresher>
+        <ion-refresher pulling-text="Pull To Refresh"  on-refresh="doRefresh(); $event.stopPropagation();" refreshing-text="Fetching ..." refreshing-icon="ion-loading-b">
+
+
+	    </ion-refresher>
+	
+
 	<div style="10px" ng-if="data.subscription.length==0 && data.orders.length==0 && data.package.length==0"><h3>No Orders Found</h3></div>
 
 	<!--*******************************************************subscription ******************************************************-->        
 	<div ng-if="data.subscription.length>0">	<h3>{{'Subscriptions'}}</h3>
 		<div class="" style="height:100%; width:100%vw;">
 	     	
-	     	<div  ng-repeat="orders in data.subscription" style="border: 1px solid black; border-radius: 8px; margin-top: 3%" ng-click="open_single_subscription(orders.subscription_id, orders.package_id, orders.product_id)">
+	     	<div  ng-repeat="orders in data.subscription" style="border: 1px solid black; border-radius: 8px; margin-top: 3%">
 					 	
 					 	<div class="row" style="height:30px">
 							<div class="col col-25">
@@ -54,7 +58,7 @@
 								<button style="margin: 1px" class="button  button-positive button-clear button-outline button-icon ion-ios-telephone icon-left" ng-click="call_customer(orders.mobno); $event.stopPropagation();">Call Customer
 								</button>
 								
-								<button class="button button-positive" style="float:right; margin: 2px;" ng-click="open_single_subscription(orders.subscription_id, orders.package_id, orders.product_id); $event.stopPropagation();">Get Details
+								<button class="button button-positive" style="float:right; margin: 2px;" ng-click="open_single_subscription(orders.subscription_id, orders.package_id, orders.product_id) $event.stopPropagation();">Get Details
 								</button>
 							</div>
 	    	</div>
@@ -65,9 +69,9 @@
 
 <!--************************************************packages**********************************************************************************-->
 	<div ng-if="data.package.length>0">	<h3>{{'Packages'}}</h3>
-		<div style="height:100%; width:100%vw;" class="">
+		<div style="height:100%; width:100%vw;">
 	     	
-	     	<div ng-repeat="orders in data.package" style="border: 1px solid black; border-radius: 8px; margin-top: 3%" ng-click="open_single_subscription(orders.subscription_id, orders.package_id, orders.product_id)">
+	     	<div ng-repeat="orders in data.package" style="margin-top: 3%">
 						 		
 					 			<div class="row" style="height:30px">
 									<div class="col col-25">
@@ -77,7 +81,7 @@
 										</div>
 									</div>
 								<div class="col col-50 text-left">
-							   		{{orders.first_name | uppercase}} {{orders.last_name | uppercase}}
+							   		<strong>{{orders.first_name | uppercase}} {{orders.last_name | uppercase}}</strong>
 							   	</div>
 							   	
 							   	<div class="col col-25 text-right">
@@ -96,12 +100,13 @@
 								</div>
 							
 						 	<div style="width:100%; text-align:left; padding:1px; display: inline-block;">
-								<button style="margin: 1px" class="button  button-positive button-clear button-outline button-icon ion-ios-telephone icon-left" ng-click="call_customer(orders.mobno); $event.stopPropagation();">Call Customer
+								<button style="margin: 1px ;width:40%" class="button button-dark button-small" ng-click="call_customer(orders.mobno); $event.stopPropagation();">Call Customer
 								</button>
 								
-								<button class="button button-positive" style="float:right; margin: 2px;" ng-click="open_single_subscription(orders.subscription_id, orders.package_id, orders.product_id); $event.stopPropagation();">Get Details
+								<button class="button button-dark button-small" style="float:right; margin: 2px; width:40%;" ng-click="open_single_subscription(orders.subscription_id, orders.package_id, orders.product_id); $event.stopPropagation();">Get Details
 								</button>
 							</div>
+							<hr>
 	    	</div>
 		</div>
 	<hr>
@@ -112,7 +117,7 @@
 
 			
 			<div style="height:100%; width:100%vw;">
-				     	<div ng-repeat="order in data.orders" style="border: 1px solid black; border-radius: 8px; height:auto;" ng-click="open_single_order(order.order_id)">
+				     	<div ng-repeat="order in data.orders" style="border: 1px solid black; border-radius: 8px; height:auto;">
 
 							
 
@@ -156,7 +161,7 @@
 		<hr>
 		</div>
 		
-		<button ng-show="selected.orders.length>0 || selected.subscription.length>0 || selected.package.length>0" class="button button-block button-calm " ng-click="get_checked()">Mark as I'm On the Way</button>
+		<button ng-show="selected.orders.length>0 || selected.subscription.length>0 || selected.package.length>0" class="button button-block button-dark " ng-click="get_checked()">Mark as I'm On the Way</button>
 
 	<!-- <div style="float: left; padding: 20px;" class="padding" >
 	</div>

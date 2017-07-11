@@ -7,7 +7,7 @@
 
 
 	
-	<ion-content overflow-scroll="true" class="has-header">
+	<ion-content overflow-scroll="true" padding="true" class="has-header">
 
 		<h3 ng-if="get_user_verification.length==0">Empty</h3>
 
@@ -29,7 +29,14 @@
 	      	
 	      	</div>
 
-	      			<button style="display: inline-block; float: right;" class="button button-positive" ng-click="scan_document();">scan</button>
+	      			
+	      			<select ng-model="drop_down.values" ng-options="x.opt for x in doc_types" value="{{x.opt}}" checked="{{x.checked}}">
+	    			</select>
+
+
+	      			<button style="display: inline-block; float: right;" class="button button-positive" ng-click="scan_document(data.cust_id);">scan doc
+		      			
+    				</button>
 
 	      			<!-- <button ng-show="imageData!=''" style="display: inline-block; float: right;" class="button button-positive" ng-click="upload_image(data.cust_id); $event.stopPropagation();">upload</button> -->
 	      	
