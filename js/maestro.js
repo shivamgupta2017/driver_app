@@ -17,6 +17,7 @@ angular.module('starter')
             };
 return {
 
+/*<?php echo $data['order'][0]->paid_amount;?>*/
 /***********************************************************************************************************************************************/
             $getPackages : function () 
             {	//get all packages

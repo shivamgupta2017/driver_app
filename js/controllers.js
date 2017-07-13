@@ -290,9 +290,8 @@ $scope.reloadView = function(){
     alert('error aagyi bhai '+JSON.stringify(error_data));
   
  	}  
-  $scope.lassan=function()
+  $scope.verification_page=function()
   {
-  	
   	$state.go('app.get_verification');
   }
 
@@ -1828,21 +1827,20 @@ $scope.openTimePicker=function(dates){
 **********************************************************************************************************************************/
   .controller('verificationCtrl', function ($scope,$http,$stateParams,$ionicLoading,$localStorage, $rootScope, $ionicPopup, $interval, $state, $ionicHistory, $ionicScrollDelegate,$ionicPlatform,ionicTimePicker, Maestro, $dataService,$ionicModal,$pinroUiService,$ionicNavBarDelegate, CartService, AuthService) {
 	var data1={};
-	data1.cust_id=AuthService.id();
-	$scope.drop_down={};
 
-	$scope.doc_types=[{opt: 'Aadhar card'}, {opt: 'DL'}, {opt: 'Vote'}, {opt: 'other'}];
-	
-	$pinroUiService.showLoading();
-  	
+	data1.cust_id=AuthService.id();
+
+	$scope.doc_types=[{opt: 'Aadhar card'}, {opt: 'DL'}, {opt: 'Voting card'}, {opt: 'Other'}];
+
+   $pinroUiService.showLoading();
   	Maestro.$get_verification().then(function(res)
   	{	
 
   		if(res.data.response.status==1)
   		{
-  			$scope.get_user_verification = res.data.response_data;
-	  		$pinroUiService.hideLoading();
-	  		
+
+    			$scope.get_user_verification = res.data.response_data;
+	     		$pinroUiService.hideLoading();
   		}
   		else if(res.data.response.status==0)
   		{
@@ -1851,33 +1849,36 @@ $scope.openTimePicker=function(dates){
   	});
 
 
-  	$scope.scan_document=function(cust_id)
-  	{
-  		/*alert('shivam');*/
-  		
+    
 
+  	$scope.scan_document=function(cust_id, drop_down, address_id)
+  	{
 	     navigator.camera.getPicture(function(imageData)
 	     	{
+				navigator.notification.activityStart("Please Wait, ", "while documents are uploading....");
+	     		
 		  		var options = new FileUploadOptions();
 		    	options.fileKey="file";
-		    	options.fileName = cust_id+'.jpeg';//imageData.substr(imageData.lastIndexOf('/')+1);
+		    	options.fileName = cust_id+'.jpg';//imageData.substr(imageData.lastIndexOf('/')+1);
 		    	options.mimeType="text/plain";
 			    var params = {
-			    	document_type: $scope.drop_down.values.opt
+            cust_id: cust_id,
+			    	document_type: drop_down,
+            address_id: address_id
 			    };
 
 			    //new Object();
 			    options.params = params;
 			    var ft = new FileTransfer();
-			    $pinroUiService.showLoading();
 	    		ft.upload(imageData, encodeURI("https://www.minbazaar.com/subs/admin/driver_service/verify_doc"), function(res)
 	    			{
+	    				navigator.notification.activityStop();
+
 	    				alert('success :'+JSON.stringify(res));
 	    			}, function(err)
 	    			{
 	    				alert('error :'+JSON.stringify(err));
 	    			}, options);
-				$pinroUiService.hideLoading();
 	     	}, function(message)
 	     	{
 	     		alert('error'+message);
@@ -1890,7 +1891,39 @@ $scope.openTimePicker=function(dates){
 
   	function win(res)
   	{
-  		alert('done res :'+res);
+  	   	
+        var confirmPopup = $ionicPopup.confirm(
+        {
+            title: 'Alert',
+            template: 'scanned successfully',
+            buttons: [{
+              text: 'OK',
+              type: 'button-assertive',
+              onTap: function(e)
+              {
+
+              }
+            }]
+        });
+        
+        
+        //put ok over here :
+        
+
+        $pinroUiService.showLoading();
+        Maestro.$get_verification().then(function(res)
+        { 
+          if(res.data.response.status==1)
+          {
+            $scope.get_user_verification = res.data.response_data;
+            $pinroUiService.hideLoading();
+          }
+          else if(res.data.response.status==0)
+          {
+            $scope.get_user_verification = res.data.response_data;
+          }
+        
+        });
 
   	}
   	function fail(err)
